@@ -1,0 +1,116 @@
+@use "sass:list";
+@use "sass:color";
+
+@font-face {
+    font-family: "BagelFatOne";
+    src: url(../../../public/fonts/BagelFatOne-Regular.ttf);
+}
+
+$font-top: "BagelFatOne", sans-serif;
+
+@mixin text-h($color, $position, $weight){
+    color: $color;
+    text-align: $position;
+    font-weight: $weight;
+}
+$values: #8D93CB, center, bold;
+*{
+    margin: 0;
+}
+.catalog-block{
+    margin-top: 100px;
+}
+
+
+.catalog-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.filter-container{
+    select{
+        border: 2px solid #8D93CB;
+        color: #481535;
+        font-size: 16px;
+        border-radius: 4px;
+        font-family: $font-top;
+    }
+}
+.search-input{
+    border: 2px solid #8D93CB;
+    color: #481535;
+    font-size: 16px;
+    border-radius: 4px;
+    font-family: $font-top;
+}
+.clear-btn{
+    background-color: #481535;
+    color: white;
+    border: none;
+    font-family: $font-top;
+    border-radius: 4px;
+    margin-left: 10px;
+    font-size: 16px;
+    padding: 2px 5px;
+    &:active{
+        background-color: #8D93CB;
+    }
+}
+
+
+
+.catalog{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    // justify-content: center;
+    margin: 20px 50px;
+}
+.product-card{
+    text-align: center;
+    width: 20%;
+    padding: 20px 19px 26px 20px;
+    font-family: $font-top;
+    transition: 0.2s;
+    img{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    &:hover{
+        box-shadow: 0px 0px 10px #8D93CB;
+    }
+    // p{
+    //     color: #8D93CB;
+    // }
+}
+.catalog-p{
+    letter-spacing: 2px;
+    width: auto;
+    text-align: left;
+    overflow-wrap: break-word;
+    margin-bottom: 5px;
+    color: #8D93CB;
+}
+.catalog-name{
+    text-align: left;
+    overflow-wrap: break-word;
+}
+.catalog-price{
+    color: #8D93CB;
+    font-size: 24px;
+}
+.catalog-btn{
+    background-color: #8D93CB;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-family: $font-top;
+    font-size: 16px;
+    margin-top: 10px;
+    padding: 10px 0;
+    width: 100%;
+    transition: 0.2s;
+    &:hover{
+        background-color: #481535;
+    }
+}

@@ -1,0 +1,14 @@
+
+@font-face {
+    font-family: "BagelFatOne";
+    src: url(../../../public/fonts/BagelFatOne-Regular.ttf);
+}
+
+$font-top: "BagelFatOne", sans-serif;
+
+.card-page{
+    display: flex;
+    margin-top: 80px;
+    font-family: $font-top;
+}
+
