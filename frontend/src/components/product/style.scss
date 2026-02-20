@@ -6,9 +6,87 @@
 
 $font-top: "BagelFatOne", sans-serif;
 
-.card-page{
-    display: flex;
-    margin-top: 80px;
-    font-family: $font-top;
+@media screen and (min-width: 375px) and (max-width: 700px){
+    .card-page{
+        flex-direction: column;
+    }
+    .text-card{
+        margin: 40px 0 0 0 !important;
+        p{
+            margin: 10px 0 !important;
+        }
+    }
+    h1{
+        font-size: 26px !important;
+    }
+    .second-text{
+        font-size: 16px !important;
+    }
 }
 
+@media screen and (min-width: 700px) and (max-width: 1200px){
+    
+    img{
+        width: 400px;
+        height: 600px;
+    }
+    .text-card{
+        margin: 20px 0 0 30px !important;
+    }
+    
+    .description-first{
+        font-size: 16px !important;
+    }
+    h1{
+        font-size: 20px !important;
+    }
+    .second-text{
+        font-size: 16px !important;
+    }
+    .product-btn{
+        padding: 10px 20px !important;
+        font-size: 16px !important;
+    }
+}
+.card-page{
+    display: flex;
+    justify-content: space-between;
+    margin: 80px 20px;
+    font-family: $font-top;
+    
+}
+
+.img-wrap2{
+    img{
+        width: 50%;
+    }
+}
+h1{
+    font-weight: 100;
+}
+.text-card{
+    margin: 40px 0 0 50px;
+    p{
+        margin: 20px 0;
+    }
+    color: #692550;
+}
+
+.description-first{
+    text-transform: uppercase;
+    color: #8D93CB;
+}
+.product-price{
+    font-size: 26px;
+}
+.product-btn{
+    background-color: #8D93CB;
+    color: white;
+    font-size: 20px;
+    border: none;
+    border-radius: 50px;
+    padding: 20px 50px;
+}
+.second-text{
+    color: #8D93CB;
+}

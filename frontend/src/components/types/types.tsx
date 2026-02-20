@@ -17,3 +17,14 @@ export interface ICategory {
     name: string;
     slug: string;
 }
+
+export interface IUser {
+    id: number;
+    user: string;
+    nickname: string;
+    name: string;
+    surname: string;
+    email: string;
+    phone: string;
+    gender: string;
+}

@@ -79,9 +79,9 @@ $values: #8D93CB, center, bold;
     &:hover{
         box-shadow: 0px 0px 10px #8D93CB;
     }
-    // p{
-    //     color: #8D93CB;
-    // }
+    Link{
+        text-decoration: none;
+    }
 }
 .catalog-p{
     letter-spacing: 2px;
@@ -90,14 +90,17 @@ $values: #8D93CB, center, bold;
     overflow-wrap: break-word;
     margin-bottom: 5px;
     color: #8D93CB;
+    text-decoration: none;
 }
 .catalog-name{
     text-align: left;
     overflow-wrap: break-word;
+    text-decoration: none;
 }
 .catalog-price{
     color: #8D93CB;
     font-size: 24px;
+    text-decoration: none;
 }
 .catalog-btn{
     background-color: #8D93CB;

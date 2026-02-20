@@ -12,6 +12,7 @@ const Menu: FC = () => {
                     <Link className="link" to="/">ГЛАВНАЯ</Link>
                     <Link className="link" to="/catalog">КАТАЛОГ</Link>
                     <Link className="link" to="">БЛОГ</Link>
+                    <Link className="link" to="">ПРОФИЛЬ</Link>
                 </div>
             </div>
         </>
