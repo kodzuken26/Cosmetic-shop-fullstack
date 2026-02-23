@@ -1,0 +1,44 @@
+@font-face {
+    font-family: "BagelFatOne";
+    src: url(../../../public/fonts/BagelFatOne-Regular.ttf);
+}
+
+$font-top: "BagelFatOne", sans-serif;
+
+.block-input{
+    margin-top: 80px;
+    font-family: $font-top;
+    background-color: #FFDBED;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: auto;
+}
+
+.info-container{
+    margin-top: 80px;
+}
+.form-group{
+    input{
+        border-radius: 4px;
+        padding: 10px 30px;
+        font-size: 20px;
+        border: none;
+    }
+}
+
+.submit-btn{
+    border: none;
+    border-radius: 8px;
+    background-color: #8D93CB;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 24px;
+    letter-spacing: 3px;
+    margin-top: 40px;
+    transition: 0.2s;
+    &:hover{
+        box-shadow: 0px 0px 15px #8D93CB;
+    }
+}

@@ -10,7 +10,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     nickname = models.CharField(max_length=50, unique=True, null=True, verbose_name='Никнейм')
     name = models.CharField(max_length=30, verbose_name='Имя')
-    surname = models.CharField(max_length=40, null=True, verbose_name='Фамилия')
+    surname = models.CharField(max_length=40, null=True, blank=True, verbose_name='Фамилия')
     email = models.EmailField(max_length=40, unique=True, )
     phone = models.CharField(max_length=20, unique=True, verbose_name='Телефон')
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES, verbose_name='Пол')
