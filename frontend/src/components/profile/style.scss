@@ -5,15 +5,26 @@
 
 $font-top: "BagelFatOne", sans-serif;
 
+.block-forms{
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+}
+
 .block-input{
-    margin-top: 80px;
+    margin: 120px 0;
+    padding: 30px 0;
     font-family: $font-top;
     background-color: #FFDBED;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: auto;
+    justify-content: center;
+    width: 40%;
+    border-radius: 8px;
+    // box-shadow: 0px 0px 15px #8d93cbd5;
+    // box-shadow: 0px 0px 25px #481535;
 }
 
 .info-container{
@@ -25,7 +36,21 @@ $font-top: "BagelFatOne", sans-serif;
         padding: 10px 30px;
         font-size: 20px;
         border: none;
+        // width: 70%;
     }
+}
+
+.title-block{
+    font-weight: bold;
+}
+
+.title-input{
+    
+    font-size: 24px;
+}
+
+.input-checkbox{
+    margin-right: 10px;
 }
 
 .submit-btn{
@@ -41,4 +66,8 @@ $font-top: "BagelFatOne", sans-serif;
     &:hover{
         box-shadow: 0px 0px 15px #8D93CB;
     }
+}
+
+@media screen and (width: 360px){
+    
 }

@@ -8,6 +8,14 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = ['id', 'name', 'slug', 'description', 'full_description', 'image', 'price', 'size', 'use', 'ingredients', 'category']
 
+    # def validate_image(self, value):
+    #     if value.size > 5 * 1024 * 1024:
+    #         raise serializers.ValidationError("Размер изображения не должен превышать 5MB")
+        
+    #     import os
+    #     ext = os.path.splitext(value.name)[1].lower()
+    #     allowed_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp']
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Categories

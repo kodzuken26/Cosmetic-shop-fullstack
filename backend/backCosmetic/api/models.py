@@ -37,7 +37,6 @@ class Categories(models.Model):
         return self.name
     
 class Product(models.Model):
-
     name = models.CharField(max_length=100, unique=True, verbose_name='Название')
     slug = models.SlugField(max_length=100, unique=True, verbose_name='URL')
     description = models.TextField(blank=True, null=True, verbose_name='Краткое описание')

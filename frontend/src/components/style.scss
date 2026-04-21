@@ -38,9 +38,10 @@ body{
     Link{
         text-decoration: none;
     }
-    img{
-        height: 50px;
-    }
+//     img{
+//         width: 30%;
+//         height: auto;
+//     }
 }
 
 .menu-list{
@@ -129,10 +130,35 @@ body{
 }
 .img-cat{
     width: 100px;
+    height: auto;
     border-radius: 50%;
     // border: 2px solid #8D93CB;
     transition: 0.3s;
     &:hover{
         transform:scale(1.2);
+    }
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1200px){
+    .menu-top{
+        img{
+            height: 50px;
+            width: 20%;
+        }
+    }
+}
+
+@media screen and (min-width: 690px) and (max-width:999px) {
+    .menu-top{
+        img{
+            height: 50px;
+            width: 20%;
+        }
+    }
+}
+
+@media screen and (max-width:540px){
+    .menu-list{
+        flex-direction: column;
     }
 }

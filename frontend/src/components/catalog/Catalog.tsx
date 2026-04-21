@@ -1,3 +1,5 @@
+import searchIcon from '../../assets/images/search-icon.png';
+
 import react, { useEffect, useState, type FC } from 'react';
 import './style.scss';
 import axios from 'axios';
@@ -28,8 +30,8 @@ const Catalog: FC<CatalogProps> = ({ initialProducts = [] }) => {
     }, []);
 
     const TextLimiter: FC<Limited> = ({ text, limit }) => {
-        if (text.length <= limit) return <p>{text}</p>;
-        return <p>{text.slice(0, limit)}...</p>;
+        if (text.length <= limit) return <span>{text}</span>;
+        return <span>{text.slice(0, limit)}...</span>;
     };
 
     const categoryIdMap = {
@@ -71,12 +73,12 @@ const Catalog: FC<CatalogProps> = ({ initialProducts = [] }) => {
                     <div className="filter-container">
                         <select value={selectedCategory}
                             onChange={(e) => setSelectedCategory(e.target.value)}>
-                            <option value="all" >Все товары</option>
-                            <option value="uhod-za-licom">Уход за лицом</option>
-                            <option value="uhod-za-volosami">Уход за волосами</option>
-                            <option value="uhod-za-telom">Уход за телом</option>
-                            <option value="kosmetika">Косметика</option>
-                            <option value="aksessuary">Аксессуары</option>
+                            <option className="select-item" value="all" >Все товары</option>
+                            <option className="select-item" value="uhod-za-licom">Уход за лицом</option>
+                            <option className="select-item" value="uhod-za-volosami">Уход за волосами</option>
+                            <option className="select-item" value="uhod-za-telom">Уход за телом</option>
+                            <option className="select-item" value="kosmetika">Косметика</option>
+                            <option className="select-item" value="aksessuary">Аксессуары</option>
                         </select>
                         {selectedCategory !== 'all' && (
                             <button onClick={() => setSelectedCategory('all')} className="clear-btn">
@@ -85,6 +87,7 @@ const Catalog: FC<CatalogProps> = ({ initialProducts = [] }) => {
                         )}
                     </div>
                     <div className="search-container">
+                        <img src={searchIcon} alt="search" className="search-icon"/>
                         <input
                             type="text"
                             placeholder="Поиск товаров"
@@ -101,7 +104,7 @@ const Catalog: FC<CatalogProps> = ({ initialProducts = [] }) => {
                     {filteredProducts.length > 0 ? (
                         filteredProducts.map(element => (
                             <div key={element.id} className="product-card">
-                                <Link to={`/catalog/products/${element.id}`}>
+                                <Link to={`/catalog/products/${element.id}`} className="card-link-el">
                                 <div className="img-wrap">
                                     <img src={String(element.image)} alt={element.name} className="img-catalog" />
                                 </div>
