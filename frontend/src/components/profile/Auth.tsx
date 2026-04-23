@@ -39,7 +39,7 @@ const Auth: FC = () => {
         setSuccessMessage(null);
 
         try {
-            const response = await axios.post("http://kodzuken.pythonanywhere.com/api/login/", {
+            const response = await axios.post("https://kodzuken.pythonanywhere.com/api/login/", {
                 phone: formData.phone
             });
 

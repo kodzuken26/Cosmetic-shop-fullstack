@@ -96,7 +96,7 @@ const Registration: FC = () => {
         setError(null);
 
         try {
-            const response = await axios.post("http://kodzuken.pythonanywhere.com/api/register/", formData);
+            const response = await axios.post("https://kodzuken.pythonanywhere.com/api/register/", formData);
             console.log("Success!", response.data);
             setSuccessMessage("Регистрация успешна! Вы будете перенаправлены...");
 

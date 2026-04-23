@@ -23,7 +23,7 @@ export const fetchProductById = (id: number) => {
     return async (dispatch: Dispatch<ProductAction>) => {
         try {
             dispatch({ type: ProductActionTypes.FETCH_PRODUCT_BY_ID });
-            const response = await axios.get(`http://kodzuken.pythonanywhere.com/api/products/${id}/`);
+            const response = await axios.get(`https://kodzuken.pythonanywhere.com/api/products/${id}/`);
             dispatch({
                 type: ProductActionTypes.FETCH_PRODUCT_BY_ID_SUCCESS,
                 payload: response.data
