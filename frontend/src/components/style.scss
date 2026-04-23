@@ -1,0 +1,86 @@
+@use "sass:list";
+@use "sass:color";
+
+@font-face {
+    font-family: "BagelFatOne";
+    src: url(../../public/fonts/BagelFatOne-Regular.ttf);
+}
+
+$font-top: "BagelFatOne", sans-serif;
+
+@mixin text-h($color, $position, $weight){
+    color: $color;
+    text-align: $position;
+    font-weight: $weight;
+}
+$values: #8D93CB, center, bold;
+
+
+
+*{
+    margin: 0;
+}
+body{
+    // background-color: #FFDBED;
+    color: #481535;
+}
+
+.menu-top{
+    background-color: #fff;
+    position: fixed;  
+    top: 0;  
+    z-index: 100;  
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+    Link{
+        text-decoration: none;
+    }
+//     img{
+//         width: 30%;
+//         height: auto;
+//     }
+}
+
+.menu-list{
+    display: flex;
+    justify-content: space-around;
+    font-family: $font-top;
+    .link{
+        list-style: none;
+        margin: 0 30px;
+        font-size: 16px;
+        @include text-h($values...);
+        letter-spacing: 2px;
+        text-decoration: none;
+    }
+}
+
+// файл main
+
+
+@media screen and (min-width: 1000px) and (max-width: 1200px){
+    .menu-top{
+        img{
+            height: 50px;
+            width: 20%;
+        }
+    }
+}
+
+@media screen and (min-width: 690px) and (max-width:999px) {
+    .menu-top{
+        img{
+            height: 50px;
+            width: 20%;
+        }
+    }
+}
+
+@media screen and (max-width:540px){
+    .menu-list{
+        flex-direction: column;
+    }
+}
