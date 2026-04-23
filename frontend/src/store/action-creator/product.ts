@@ -6,7 +6,7 @@ export const fetchProducts = () => {
     return async (dispatch: Dispatch<ProductAction>) => {
         try {
             dispatch({ type: ProductActionTypes.FETCH_PRODUCTS })
-            const response = await axios.get('http://kodzuken.pythonanywhere.com/api/products/')
+            const response = await axios.get('https://kodzuken.pythonanywhere.com/api/products/')
             setTimeout(() => {
                 dispatch({type: ProductActionTypes.FETCH_PRODUCTS_SUCCESS, payload: response.data})
             }, 500)
