@@ -2,7 +2,7 @@ import type { Dispatch } from "redux"
 import { type UserAction, UserActionTypes } from "../../types/user"
 import axios from "axios"
 
-const API_URL = 'http://127.0.0.1:8000/api/login/'
+const API_URL = 'http://kodzuken.pythonanywhere.com/api/login/'
 
 export const fetchUserProfile = () => {
     return async (dispatch: Dispatch<UserAction>) => {

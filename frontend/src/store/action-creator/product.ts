@@ -6,7 +6,7 @@ export const fetchProducts = () => {
     return async (dispatch: Dispatch<ProductAction>) => {
         try {
             dispatch({ type: ProductActionTypes.FETCH_PRODUCTS })
-            const response = await axios.get('http://127.0.0.1:8000/api/products/')
+            const response = await axios.get('http://kodzuken.pythonanywhere.com/api/products/')
             setTimeout(() => {
                 dispatch({type: ProductActionTypes.FETCH_PRODUCTS_SUCCESS, payload: response.data})
             }, 500)
@@ -23,7 +23,7 @@ export const fetchProductById = (id: number) => {
     return async (dispatch: Dispatch<ProductAction>) => {
         try {
             dispatch({ type: ProductActionTypes.FETCH_PRODUCT_BY_ID });
-            const response = await axios.get(`http://127.0.0.1:8000/api/products/${id}/`);
+            const response = await axios.get(`http://kodzuken.pythonanywhere.com/api/products/${id}/`);
             dispatch({
                 type: ProductActionTypes.FETCH_PRODUCT_BY_ID_SUCCESS,
                 payload: response.data
