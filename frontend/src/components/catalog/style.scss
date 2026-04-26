@@ -6,6 +6,12 @@
     src: url(../../../public/fonts/BagelFatOne-Regular.ttf);
 }
 
+@font-face {
+    font-family: "ProductName";
+    src: url(../../../public/fonts/Cormorant_SC/CormorantSC_Medium.ttf);
+}
+
+$font-name: "ProductName", sans-serif;
 $font-top: "BagelFatOne", sans-serif;
 
 @mixin text-h($color, $position, $weight){
