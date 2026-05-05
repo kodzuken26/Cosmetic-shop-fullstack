@@ -25,12 +25,7 @@ const Product: FC = () => {
         }
     }, [id, fetchProductById, productsData]);
 
-    const handleClick = () => {
-    const element = document.getElementById('text');
-    if (element) {
-        element.classList.remove('hidden');
-    }
-};
+   
     
     if (loading) {
         return <div className="loading">Загрузка...</div>;
