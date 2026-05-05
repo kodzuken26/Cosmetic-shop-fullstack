@@ -7,6 +7,8 @@ import Registration from "./components/profile/Registration"
 import Auth from "./components/profile/Auth"
 import Profile from "./components/profile/Profile"
 import { CookiesProvider } from "react-cookie"
+import Blog from "./components/blog/Blog"
+import Basket from "./components/basket/Basket"
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
                         <Route path="/registration" element={<Registration />} />
                         <Route path="/auth" element={<Auth />} />
                         <Route path="/profile" element={<Profile />} />
+                        <Route path="/blog" element={<Blog />} />
+                        <Route path="/basket" element={<Basket/>} />
                     </Routes>
                 </BrowserRouter>
             </CookiesProvider>

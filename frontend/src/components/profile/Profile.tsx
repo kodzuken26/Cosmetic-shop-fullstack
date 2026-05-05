@@ -1,90 +1,59 @@
-import { useEffect, useState, type FC } from "react";
-import { useNavigate } from "react-router-dom";
-import type { IUser } from "../../types/types";
+import { useEffect, type FC } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useActions } from '../../hooks/useActions';
 import { useCookies } from 'react-cookie';
 
 const Profile: FC = () => {
-    const [cookies, removeCookie] = useCookies(['user', 'access_token']);
-    const [user, setUser] = useState<IUser | null>(null);
     const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     const storedUser = localStorage.getItem('user');
-    //     if (storedUser) {
-    //         setUser(JSON.parse(storedUser));
-    //     } else {
-    //         navigate('/login');
-    //     }
-    // }, [navigate]);
-
-    // useEffect(() => {
-    //     const storedUser = localStorage.getItem('user');
-    //     if (storedUser) {
-    //         try {
-    //             const parsedUser = JSON.parse(storedUser);
-    //             setUser(parsedUser);
-    //         } catch (error) {
-    //             console.error('Ошибка парсинга данных пользователя:', error);
-    //             navigate('/login');
-    //         }
-    //     } else {
-    //         navigate('/login');
-    //     }
-    // }, [navigate]);
-
+    const [, , removeCookie] = useCookies(['user', 'access_token']);
+    
+    const { data: user, loading, error } = useTypedSelector((state) => state.user);
+    const { fetchUserProfile } = useActions();
 
     useEffect(() => {
-        // 👇 Достаём пользователя из куки (он уже распарсен)
-        const userData = cookies.user;
-
-        if (userData) {
-            // Если данные пришли строкой (на всякий случай)
-            if (typeof userData === 'string') {
-                try {
-                    setUser(JSON.parse(userData));
-                } catch (e) {
-                    console.error('Ошибка парсинга пользователя');
-                    navigate('/login');
-                }
-            } else {
-                // Если это уже объект
-                setUser(userData);
-            }
-        } else {
-            // Нет пользователя в куки — отправляем на логин
-            navigate('/auth');
+        if (!user && !loading) {
+            fetchUserProfile();
         }
-    }, [cookies, navigate]);
-
-    
+    }, [user, loading, fetchUserProfile]);
 
     const handleLogout = () => {
         removeCookie('access_token', { path: '/' });
         removeCookie('user', { path: '/' });
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('user');
         navigate('/');
     };
 
+    if (loading) {
+        return <div className="loading">Загрузка профиля...</div>;
+    }
+
+    if (error) {
+        return <div className="error">Ошибка загрузки профиля: {error}</div>;
+    }
+
+    if (!user) {
+        return <div className="info-container">Пользователь не найден</div>;
+    }
+
     return (
-        <>
-            <div className="info-container">
-                <div className="info">
-                    <p>{user?.name} {user?.surname}</p>
-                    <p><strong>Ник:</strong> {user?.nickname}</p>
-
-                    <div>
-                        <button
-                            onClick={handleLogout}
-                            className="logout-btn"
-                        >
-                            Выйти
-                        </button>
-                    </div>
+        <div className="info-container">
+            <div className="info">
+                <p>{user.name} {user.surname}</p>
+                <p><strong>Ник:</strong> {user.nickname}</p>
+                <p><strong>Email:</strong> {user.email}</p>
+                <p><strong>Телефон:</strong> {user.phone}</p>
+                <p><strong>Пол:</strong> {user.gender === 'woman' ? 'Женский' : 
+                                        user.gender === 'man' ? 'Мужской' : 'Не указан'}</p>
+                <div>
+                    <button onClick={handleLogout} className="logout-btn">
+                        Выйти
+                    </button>
                 </div>
-
             </div>
-        </>
-    )
-}
+        </div>
+    );
+};
 
 export default Profile;
-

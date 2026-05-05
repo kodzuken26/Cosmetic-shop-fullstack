@@ -1,29 +1,35 @@
 
+
 @font-face {
-    font-family: "BagelFatOne";
-    src: url(../../../public/fonts/BagelFatOne-Regular.ttf);
+    font-family: "fontDefault";
+    src: url(/fonts/CormorantSC-Medium.ttf)
+}
+@font-face {
+    font-family: "boldFont";
+    src: url(/fonts/CormorantSC-Bold.ttf);
 }
 
-$font-top: "BagelFatOne", sans-serif;
+$font-bold: "boldFont", sans-serif;
+$font-default: "fontDefault", sans-serif;
 
 
 .card-page{
     display: flex;
     justify-content: space-between;
     margin: 80px 20px;
-    font-family: $font-top;
-    
 }
 
 .img-wrap2{
+    width: 100%;
     img{
-        width: 50%;
+        object-fit: cover;
     }
 }
-h1{
-    font-weight: 100;
+.product-name{
+    font-family: $font-bold;
 }
 .text-card{
+    width: 100%;
     margin: 40px 0 0 50px;
     p{
         margin: 20px 0;
@@ -34,9 +40,12 @@ h1{
 .description-first{
     text-transform: uppercase;
     color: #8D93CB;
+    font-family: $font-default;
+    font-size: 18px;
 }
 .product-price{
     font-size: 26px;
+    font-family: $font-bold;
 }
 .product-btn{
     background-color: #8D93CB;
@@ -45,9 +54,43 @@ h1{
     border: none;
     border-radius: 50px;
     padding: 20px 50px;
+    font-family: $font-default;
+}
+.title{
+    font-size: 24px;
 }
 .second-text{
+    font-size: 18px;
     color: #8D93CB;
+    text-align: justify;
+    font-family: $font-default;
+}
+
+.product-group{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom:2px solid #692550 ;
+    transition: 0.2s;
+    
+}
+.hidden{
+    display: none;
+}
+
+.button__reset{
+    background-color: #692550;
+    font-family: $font-default;
+    margin-top: 20px;
+    font-size: 24px;
+    border: none;
+    border-radius: 40px;
+    padding: 10px 15px;
+    .link{
+        color: white;
+        text-decoration: none;
+    }
+    
 }
 
 @media screen and (min-width: 700px) and (max-width: 1200px){

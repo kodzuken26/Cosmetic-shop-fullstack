@@ -193,7 +193,7 @@ class UserRegistrationSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         print="="*50
-        print="🔍 ВАЛИДАЦИЯ ДАННЫХ:"
+        print="ВАЛИДАЦИЯ ДАННЫХ:"
         print=(attrs)
         
         # Проверка email
@@ -208,13 +208,13 @@ class UserRegistrationSerializer(serializers.Serializer):
         if UserProfile.objects.filter(phone=attrs['phone']).exists():
             raise serializers.ValidationError({"phone": "Пользователь с таким телефоном уже существует"})
         
-        print="✅ Валидация пройдена"
+        print="Валидация пройдена"
         return attrs
     
     def create(self, validated_data):
         print="="*50
-        print="🛠️ НАЧАЛО СОЗДАНИЯ ПОЛЬЗОВАТЕЛЯ И ПРОФИЛЯ"
-        print="📦 Данные для создания:", validated_data
+        print="НАЧАЛО СОЗДАНИЯ ПОЛЬЗОВАТЕЛЯ И ПРОФИЛЯ"
+        print="Данные для создания:", validated_data
         
         try:
             # ШАГ 1: Создаем username из email
@@ -245,7 +245,7 @@ class UserRegistrationSerializer(serializers.Serializer):
                 first_name=validated_data['name'],
                 last_name=validated_data.get('surname', '')
             )
-            print=f"✅ Пользователь создан! ID: {user.id}, Username: {user.username}"
+            print=f"Пользователь создан! ID: {user.id}, Username: {user.username}"
             
             # ШАГ 5: Создаем профиль
             print="5. Попытка создания профиля..."
@@ -258,16 +258,16 @@ class UserRegistrationSerializer(serializers.Serializer):
                 phone=validated_data['phone'],
                 gender=validated_data['gender']
             )
-            print=f"✅ Профиль создан! ID: {profile.id}, Nickname: {profile.nickname}"
+            print=f"Профиль создан! ID: {profile.id}, Nickname: {profile.nickname}"
             
             print="="*50
-            print="✅ РЕГИСТРАЦИЯ УСПЕШНО ЗАВЕРШЕНА"
+            print="РЕГИСТРАЦИЯ УСПЕШНО ЗАВЕРШЕНА"
             print="="*50
             
             return profile
             
         except Exception as e:
-            print="❌❌❌ ОШИБКА В CREATE:"
+            print="ОШИБКА В CREATE:"
             print(f"Тип ошибки: {type(e)}")
             print(f"Сообщение: {str(e)}")
             import traceback
@@ -276,13 +276,15 @@ class UserRegistrationSerializer(serializers.Serializer):
             raise e
 
 class UserLoginSerializer(serializers.Serializer):
-    phone = serializers.CharField(required=True)
+    nickname = serializers.CharField()
+    phone = serializers.CharField()
 
     def validate(self, data):
-        phone = data.get('phone')
-        
         try:
-            profile = UserProfile.objects.get(phone=phone)
-            return profile
+            profile = UserProfile.objects.get(
+                nickname=data['nickname'], 
+                phone=data['phone']
+            )
+            return {'user': profile.user}
         except UserProfile.DoesNotExist:
-            raise serializers.ValidationError("Пользователь с таким телефоном не найден")
+            raise serializers.ValidationError("Неверный никнейм или телефон")

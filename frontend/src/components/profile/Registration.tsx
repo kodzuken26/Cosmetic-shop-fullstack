@@ -10,7 +10,7 @@ interface ServerError {
 
 const Registration: FC = () => {
     const [formData, setFormData] = useState({
-        user: "",
+        // user: "",
         nickname: "",
         name: "",
         surname: "",
@@ -82,21 +82,29 @@ const Registration: FC = () => {
             return;
         }
 
-        if (!formData.privacyPolicy) {
-            setError("Вы должны согласиться с Политикой конфиденциальности");
-            return;
-        }
+        // if (!formData.privacyPolicy) {
+        //     setError("Вы должны согласиться с Политикой конфиденциальности");
+        //     return;
+        // }
 
-        if (!formData.personalData) {
-            setError("Вы должны дать согласие на обработку персональных данных");
-            return;
-        }
+        // if (!formData.personalData) {
+        //     setError("Вы должны дать согласие на обработку персональных данных");
+        //     return;
+        // }
 
         setIsLoading(true);
         setError(null);
 
         try {
-            const response = await axios.post("https://kodzuken.pythonanywhere.com/api/register/", formData);
+            const dataToSend = {
+    nickname: formData.nickname,
+    name: formData.name,
+    surname: formData.surname,
+    email: formData.email,
+    phone: formData.phone,
+    gender: formData.gender,
+};
+            const response = await axios.post("https://kodzuken.pythonanywhere.com/api/register/", dataToSend);
             console.log("Success!", response.data);
             setSuccessMessage("Регистрация успешна! Вы будете перенаправлены...");
 

@@ -4,10 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 import './style.scss';
 
-
-// interface ServerError {
-//     [key: string]: string | string[];
-// }
+const API_URL = import.meta.env.DEV 
+    ? 'http://127.0.0.1:8000/api/' 
+    : 'https://kodzuken.pythonanywhere.com/api/';
 
 const Auth: FC = () => {
     const [, setCookie] = useCookies(['access_token', 'user']);
@@ -39,13 +38,16 @@ const Auth: FC = () => {
         setSuccessMessage(null);
 
         try {
-            const response = await axios.post("https://kodzuken.pythonanywhere.com/api/login/", {
+            
+            const response = await axios.post(`${API_URL}login/`, {
+                nickname: formData.nickname,  
                 phone: formData.phone
             });
 
-            console.log(" Успешный вход!", response.data);
+            console.log("✅ Успешный вход!", response.data);
             setSuccessMessage("Вы успешно вошли в аккаунт!");
             setCookie('access_token', response.data.token, { path: '/' });
+            localStorage.setItem('access_token', response.data.token);
 
             setCookie('user', JSON.stringify({
                 id: response.data.id,
@@ -63,12 +65,36 @@ const Auth: FC = () => {
                 navigate('/profile');
             }, 1500);
 
-        } catch (error: any) {
-            console.log("Ошибка при входе!", error);
+        } catch (err: any) {
+            console.error("Ошибка при входе:", err);
+            
+            if (err.response && err.response.data) {
+                const errorData = err.response.data;
+                
+                if (typeof errorData === 'string') {
+                    setError(errorData);
+                } else if (typeof errorData === 'object') {
+                    const firstKey = Object.keys(errorData)[0];
+                    const firstMessage = errorData[firstKey];
+                    
+                    if (Array.isArray(firstMessage)) {
+                        setError(`${firstKey}: ${firstMessage[0]}`);
+                    } else {
+                        setError(`${firstKey}: ${firstMessage}`);
+                    }
+                } else {
+                    setError("Ошибка сервера. Попробуйте позже.");
+                }
+            } else if (err.request) {
+                setError("Не удалось подключиться к серверу. Проверьте интернет-соединение.");
+            } else {
+                setError(err.message || "Произошла ошибка. Попробуйте позже.");
+            }
         } finally {
             setIsLoading(false);
         }
     };
+    
     return (
         <>
             <div className="block-forms">
@@ -114,10 +140,9 @@ const Auth: FC = () => {
                     </p>
                 </div>
             </div>
-
-
         </>
-    )
-}
+    );
+};
 
 export default Auth;
+

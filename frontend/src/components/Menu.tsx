@@ -1,5 +1,5 @@
 import { type FC } from 'react';
-import logo from '../../public/logo1.png';
+import logo from '/logo1.png';
 import './style.scss';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ const Menu: FC = () => {
                 <div className="menu-list">
                     <Link className="link" to="/">ГЛАВНАЯ</Link>
                     <Link className="link" to="/catalog">КАТАЛОГ</Link>
-                    <Link className="link" to="">БЛОГ</Link>
+                    <Link className="link" to="/blog">БЛОГ</Link>
                     <Link className="link" to="/registration">ПРОФИЛЬ</Link>
                 </div>
             </div>

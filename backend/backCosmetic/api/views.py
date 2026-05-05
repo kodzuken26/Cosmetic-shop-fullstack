@@ -122,8 +122,8 @@ class UserRegistrationAPIView(GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         print="="*50
-        print=("📝 ПОЛУЧЕН ЗАПРОС НА РЕГИСТРАЦИЮ")
-        print=("📦 Данные:", request.data)
+        print=(" ПОЛУЧЕН ЗАПРОС НА РЕГИСТРАЦИЮ")
+        print=(" Данные:", request.data)
         print="="*50
         
         serializer = self.get_serializer(data=request.data)
@@ -144,11 +144,11 @@ class UserRegistrationAPIView(GenericAPIView):
                     'gender': profile.gender,
                 }
                 
-                print="✅ Регистрация успешна:", user_data
+                print=" Регистрация успешна:", user_data
                 return Response(user_data, status=status.HTTP_201_CREATED)
                 
             except Exception as e:
-                print="❌ Ошибка при сохранении:", str(e)
+                print=" Ошибка при сохранении:", str(e)
                 import traceback
                 traceback.print_exc()
                 return Response(
@@ -156,7 +156,7 @@ class UserRegistrationAPIView(GenericAPIView):
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
         
-        print="❌ Ошибки валидации:", serializer.errors
+        print=" Ошибки валидации:", serializer.errors
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserLoginAPIView(GenericAPIView):
@@ -167,22 +167,26 @@ class UserLoginAPIView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         
         if serializer.is_valid():
-            profile = serializer.validated_data
-            token = secrets.token_hex(16)
+            user = serializer.validated_data['user']  # должен возвращать user
+            
+            refresh = RefreshToken.for_user(user)
             
             user_data = {
-                'id': profile.id,
-                'email': profile.email,
-                'nickname': profile.nickname,
-                'name': profile.name,
-                'surname': profile.surname,
-                'phone': profile.phone,
-                'gender': profile.gender,
-                'token': token
+                'id': user.id,
+                'email': user.email,
+                'nickname': user.profile.nickname,
+                'name': user.profile.name,
+                'surname': user.profile.surname,
+                'phone': user.profile.phone,
+                'gender': user.profile.gender,
+                'token': str(refresh.access_token),
+                'refresh': str(refresh),
             }
             return Response(user_data, status=status.HTTP_200_OK)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
 class UserLogoutAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 

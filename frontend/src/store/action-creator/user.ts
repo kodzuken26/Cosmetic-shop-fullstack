@@ -2,7 +2,9 @@ import type { Dispatch } from "redux"
 import { type UserAction, UserActionTypes } from "../../types/user"
 import axios from "axios"
 
-const API_URL = 'https://kodzuken.pythonanywhere.com/api/login/'
+const API_URL = import.meta.env.DEV 
+    ? 'http://127.0.0.1:8000/api/' 
+    : 'https://kodzuken.pythonanywhere.com/api/';
 
 export const fetchUserProfile = () => {
     return async (dispatch: Dispatch<UserAction>) => {
@@ -18,7 +20,7 @@ export const fetchUserProfile = () => {
             
             dispatch({
                 type: UserActionTypes.FETCH_USERS_SUCCESS, 
-                payload: response.data  // данные одного пользователя
+                payload: response.data  
             })
         } catch (e) {
             dispatch({
