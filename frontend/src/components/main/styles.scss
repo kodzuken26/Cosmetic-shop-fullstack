@@ -372,6 +372,30 @@ $block-values: flex, center, space-evenly, 76px 0;
     color: #666;
 }
 
+.brands-block{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 0 50px;
+    h2{
+        @include text-h($values...);
+        font-family: $font-bold;
+        font-size: 48px;
+        letter-spacing: 2px;
+    }
+    .brands-logo{
+        display: grid;
+        grid-template-columns: repeat(4, 3fr);
+        margin-top: 20px;
+        img{
+            height: 50%;
+            width: 50%;
+            margin: 10px;
+        }
+    }
+}
+
 /* Адаптация для мобильных */
 @media (max-width: 768px) {
     .promotion-block {

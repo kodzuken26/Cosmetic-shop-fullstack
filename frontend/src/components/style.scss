@@ -2,11 +2,11 @@
 @use "sass:color";
 
 @font-face {
-    font-family: "BagelFatOne";
-    src: url(../../public/fonts/BagelFatOne-Regular.ttf);
+    font-family: "boldFont";
+    src: url(/fonts/CormorantSC-Bold.ttf);
 }
 
-$font-top: "BagelFatOne", sans-serif;
+$font-bold: "boldFont", sans-serif;
 
 @mixin text-h($color, $position, $weight){
     color: $color;
@@ -47,14 +47,18 @@ body{
 .menu-list{
     display: flex;
     justify-content: space-around;
-    font-family: $font-top;
+    font-family: $font-bold;
     .link{
         list-style: none;
         margin: 0 30px;
-        font-size: 16px;
+        font-size: 24px;
         @include text-h($values...);
         letter-spacing: 2px;
         text-decoration: none;
+        transition: 0.2s;
+        &:hover{
+            text-decoration: underline 2px #8D93CB;
+        }
     }
 }
 
