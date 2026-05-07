@@ -3,8 +3,12 @@ from .models import UserProfile, Product, Categories
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'nickname', 'name', 'surname', 'email', 'phone', 'gender')
-    search_fields = ('user__username', 'user__email', 'nickname', 'phone')
+    list_display = (
+        'id',
+        'name',
+        'email',
+        'phone',
+    )
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):

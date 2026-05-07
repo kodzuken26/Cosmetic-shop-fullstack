@@ -1,3 +1,6 @@
+import { type FC } from 'react';
+import './styles.scss';
+
 import brand1Img from '/brand1.jfif';
 import brand2Img from '/brand2.jpg';
 import brand3Img from '/brand3.png';
@@ -15,35 +18,29 @@ import brand14Img from '/brand14.webp';
 import brand15Img from '/brand15.webp';
 import brand16Img from '/brand16.png';
 
-import { type FC } from 'react';
-import './styles.scss';
+const brands = [
+    brand1Img, brand2Img, brand3Img, brand4Img,
+    brand5Img, brand6Img, brand7Img, brand8Img,
+    brand9Img, brand10Img, brand11Img, brand12Img,
+    brand13Img, brand14Img, brand15Img, brand16Img
+];
 
 const Brands: FC = () => {
     return (
-        <>
-            <div className="brands-block">
-                <h2>Наши партнеры</h2>
-                <div className="brands-logo">
-                    <img src={brand1Img} alt='brand' />
-                    <img src={brand2Img} alt='brand' />
-                    <img src={brand3Img} alt='brand' />
-                    <img src={brand4Img} alt='brand' /> 
-                    <img src={brand5Img} alt='brand' />
-                    <img src={brand6Img} alt='brand' />
-                    <img src={brand7Img} alt='brand' />
-                    <img src={brand8Img} alt='brand' /> 
-                    <img src={brand9Img} alt='brand' />
-                    <img src={brand10Img} alt='brand' />
-                    <img src={brand11Img} alt='brand' />
-                    <img src={brand12Img} alt='brand' /> 
-                    <img src={brand13Img} alt='brand' />
-                    <img src={brand14Img} alt='brand' />
-                    <img src={brand15Img} alt='brand' />
-                    <img src={brand16Img} alt='brand' />
+        <div className="brands-block">
+            <h2>Наши партнеры</h2>
+
+            <div className="brands-marquee">
+                <div className="brands-track">
+                    {[...brands, ...brands].map((img, index) => (
+                        <div className="brand-item" key={index}>
+                            <img src={img} alt="brand" />
+                        </div>
+                    ))}
                 </div>
             </div>
-        </>
-    )
-}
+        </div>
+    );
+};
 
 export default Brands;

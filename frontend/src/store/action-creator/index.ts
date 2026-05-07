@@ -1,7 +1,9 @@
 import * as UserActionCreators from './user';
 import * as ProductActionCreators from './product';
+import * as AuthActions from './auth';
 
 export default {
     ...ProductActionCreators,
-    ...UserActionCreators
+    ...UserActionCreators,
+    ...AuthActions,
 }

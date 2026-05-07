@@ -1,59 +1,49 @@
-import { useEffect, type FC } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { useActions } from '../../hooks/useActions';
-import { useCookies } from 'react-cookie';
+import { type FC } from "react";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import api from "../../api/api";
+import "./style.scss";
 
-const Profile: FC = () => {
-    const navigate = useNavigate();
-    const [, , removeCookie] = useCookies(['user', 'access_token']);
+
+
+const ProfileLayout: FC = () => {
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    try {
+      await api.post("/logout/", {
+        refresh: localStorage.getItem("refresh"),
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
+    localStorage.clear();
+    navigate("/auth");
+  };
+
+  return (
+    <div className="profile-layout">
+      
+      
+      <div className="sidebar">
+        <h2>Личный кабинет</h2>
+
+        <NavLink to="/profile/me">Мой профиль</NavLink>
+        <NavLink to="/profile/favorites">Избранное</NavLink>
+        <NavLink to="/profile/cart">Корзина</NavLink>
+
+        <button onClick={logout} className="logout-btn">
+          Выйти
+        </button>
+      </div>
+
     
-    const { data: user, loading, error } = useTypedSelector((state) => state.user);
-    const { fetchUserProfile } = useActions();
+      <div className="content">
+        <Outlet />
+      </div>
 
-    useEffect(() => {
-        if (!user && !loading) {
-            fetchUserProfile();
-        }
-    }, [user, loading, fetchUserProfile]);
-
-    const handleLogout = () => {
-        removeCookie('access_token', { path: '/' });
-        removeCookie('user', { path: '/' });
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('user');
-        navigate('/');
-    };
-
-    if (loading) {
-        return <div className="loading">Загрузка профиля...</div>;
-    }
-
-    if (error) {
-        return <div className="error">Ошибка загрузки профиля: {error}</div>;
-    }
-
-    if (!user) {
-        return <div className="info-container">Пользователь не найден</div>;
-    }
-
-    return (
-        <div className="info-container">
-            <div className="info">
-                <p>{user.name} {user.surname}</p>
-                <p><strong>Ник:</strong> {user.nickname}</p>
-                <p><strong>Email:</strong> {user.email}</p>
-                <p><strong>Телефон:</strong> {user.phone}</p>
-                <p><strong>Пол:</strong> {user.gender === 'woman' ? 'Женский' : 
-                                        user.gender === 'man' ? 'Мужской' : 'Не указан'}</p>
-                <div>
-                    <button onClick={handleLogout} className="logout-btn">
-                        Выйти
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
+    </div>
+  );
 };
 
-export default Profile;
+export default ProfileLayout;

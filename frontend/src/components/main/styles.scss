@@ -27,65 +27,142 @@ $values: #8D93CB, center, bold;
     justify-content: $position2;
     margin: $margin;
 }
-$block-values: flex, center, space-evenly, 76px 0;
+$block-values: flex, center, space-evenly, 85px 0;
 
-.main{
-    @include block-main($block-values...);
-    background-color: #FFDBED;
+.container{
+    max-width: 1830px;
+margin: 0 auto;
+// padding: 0 20px;
+}
+
+// СЛАЙДЕР ---------------------------------------
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.slider {
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.main, .main2 {
     position: relative;
     width: 100%;
     height: 100%;
-    img{
-        -webkit-mask-image: linear-gradient(to left, #FFDBED, transparent 90%);
-        mask-image: linear-gradient(to left, #FFDBED, transparent 90%);
-        object-fit: cover;
-        object-position: 0 20%;
-        display: block;
-        float: right;
-        margin: 0;
-         width: 100%;
-        height: 100%;
-    }
-}
-.main2{
-    @include block-main($block-values...);
-    background-color: #8D93CB;
-    img{
-        -webkit-mask-image: linear-gradient(to right,#8D93CB, transparent 100%);
-        mask-image: linear-gradient(to right, #8D93CB, transparent 100%);
-        height: 50rem;
-        width: 70vw;
-        object-fit: cover;
-        object-position: 0 20%;
-        display: block;
-        float: right;
-        margin: 0;
-    }
+
+    display: flex;
+    align-items: center;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
+.main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #FFDBED;
+    opacity: 0.7;
+    z-index: 1;
+}
+
+.main2::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #8D93CB;
+    opacity: 0.7;
+    z-index: 1;
+}
+
+.main-p, .main-p2 {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    padding: 0 60px;
+    font-size: 24px;
+    letter-spacing: 2px;
+}
 .main-p{
-    h1{
-        font-family: $font-bold;
-    }
+    margin-left: 30px;
+}
+.main-p2 {
+    color: white;
+    margin-left: 20px;
     text-align: left;
-    padding: 0 30px 0 100px;
-    font-family: $font-default;
-    font-size: 24px;
-    
-    letter-spacing: 2px;
+}
+.main{
+    background-position: center 40%;
 }
 
-.main-p2{
-    h1{
-        font-family: $font-bold;
+.main-btn {
+    margin-top: 30px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    background: #481535;
+    color: white;
+    cursor: pointer;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+}
+
+.slider-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+
+    img {
+        width: 30px;
     }
-    color: #FFDBED;
-    text-align: right;
-    padding: 0 100px 0 30px;
-    font-family: $font-default;
-    font-size: 24px;
-    
-    letter-spacing: 2px;
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+.slider-dots {
+    position: absolute;
+    z-index: 10;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    border: none;
+}
+
+.dot.active {
+    background: white;
 }
 
 .main-btn{
@@ -137,7 +214,6 @@ $block-values: flex, center, space-evenly, 76px 0;
     width: 100px;
     height: auto;
     border-radius: 50%;
-    // border: 2px solid #8D93CB;
     transition: 0.3s;
     &:hover{
         transform:scale(1.2);
@@ -146,105 +222,7 @@ $block-values: flex, center, space-evenly, 76px 0;
 
 
 
-// СЛАЙДЕР ---------------------------------------
-.slider-container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    min-height: 500px;
-    overflow: hidden;
-}
 
-.slider {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out;
-    z-index: 1;
-    
-    &.active {
-        opacity: 1;
-        z-index: 2;
-    }
-}
-
-.main-btn {
-    padding: 12px 32px;
-    font-size: 18px;
-    background-color: #481535;
-    color: white;
-    border: none;
-    border-radius: 40px;
-    cursor: pointer;
-    
-    &:hover {
-        background-color: #6b234d;
-    }
-}
-
-.link {
-    color: white;
-    text-decoration: none;
-}
-
-.slider-button {
-    position: absolute;
-    top: 50%;
-    background-color: #ffffff00;
-    transform: translateY(-50%);
-    border: none;
-    cursor: pointer;
-    padding: 12px 20px;
-    border-radius: 50%;
-    z-index: 10;
-    img{
-        width: 30px;
-        height: 30px;
-    }
-    &.prev {
-        left: 20px;
-    }
-    &.next {
-        right: 20px;
-    }
-}
-
-.slider-dots {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 15px;
-    z-index: 10;
-}
-
-.dot {
-    width: 12px;
-    height: 12px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    
-    &.active {
-        background-color: white;
-    }
-    
-    &:hover {
-        background-color: rgba(255, 255, 255, 0.8);
-    }
-}
 
 // PROMOTION----------------------------
 .promotion-block {
@@ -371,65 +349,124 @@ $block-values: flex, center, space-evenly, 76px 0;
     font-size: 18px;
     color: #666;
 }
+.brands-block {
+    width: 100%;
+    padding: 40px 0;
+    text-align: center;
 
-.brands-block{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 0 0 50px;
-    h2{
-        @include text-h($values...);
-        font-family: $font-bold;
-        font-size: 48px;
-        letter-spacing: 2px;
+    h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
     }
-    .brands-logo{
-        display: grid;
-        grid-template-columns: repeat(4, 3fr);
-        margin-top: 20px;
-        img{
-            height: 50%;
-            width: 50%;
-            margin: 10px;
+}
+
+
+.brands-marquee {
+    overflow: hidden;
+    width: 100%;
+}
+
+
+.brands-track {
+    display: flex;
+    width: max-content;
+    animation: scroll 25s linear infinite;
+}
+
+
+.brand-item {
+    flex: 0 0 auto;
+    margin: 0 30px;
+
+    img {
+        height: 60px;
+        width: auto;
+        object-fit: contain;
+        filter: grayscale(100%);
+        transition: 0.3s;
+    }
+
+    img:hover {
+        filter: grayscale(0%);
+        transform: scale(1.1);
+    }
+}
+
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@media screen and (max-width: 999px) {
+    .slider-container {
+        height: 80vh;
+    }
+
+    .main, .main2 {
+        padding: 0 30px;
+        gap: 20px;
+
+        img {
+            max-width: 45%;
         }
     }
-}
 
-/* Адаптация для мобильных */
-@media (max-width: 768px) {
-    .promotion-block {
-        flex-direction: column;
-        padding: 20px;
+    .main-p, .main-p2 {
+        h1 {
+            font-size: 28px;
+        }
+
+        h2 {
+            font-size: 24px;
+        }
+
+        p {
+            font-size: 16px;
+        }
     }
-    
-    .promotion-banner {
-        width: 100%;
-    }
-    
-    .block-products {
-        width: 100%;
-    }
-    
-    .slider-product {
-        max-width: 220px;
-    }
-    
-    .slider-product-name {
-        font-size: 14px;
-    }
-}
-@media (max-width: 768px) {
-    .main_p h1, .slide-content h2 {
-        font-size: 28px;
-    }
-    
-    .main_p p, .slide-content p {
+
+    .main-btn {
+        padding: 10px 24px;
         font-size: 16px;
     }
-    
+}
+@media (max-width: 768px) {
+    .main, .main2 {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .main-p, .main-p2 {
+        padding: 20px;
+        width: 100%;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .main::before,
+    .main2::before {
+        opacity: 0.85;
+    }
+
     .slider-button {
-        padding: 8px 14px;
-        font-size: 20px;
+        display: none;
+    }
+
+    .brand-item {
+        margin: 0 15px;
+
+        img {
+            height: 40px;
+        }
+    }
+
+    .brands-track {
+        animation: scroll 18s linear infinite;
     }
 }
+

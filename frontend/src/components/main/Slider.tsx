@@ -14,8 +14,10 @@ interface Slide {
 const extraSlides: Slide[] = [
     {
         content: (
-            <div className="main2">
-                <img src={slide1Img} alt=""  />
+            <div 
+                className="main2"
+                style={{ backgroundImage: `url(${slide1Img})` }}
+            >
                 <div className="main-p2">
                     <h2>Уход за лицом</h2>
                     <p>Натуральные ингредиенты из Кореи</p>
@@ -28,7 +30,10 @@ const extraSlides: Slide[] = [
     },
     {
         content: (
-            <div className="main">
+            <div 
+                className="main"
+                style={{ backgroundImage: `url(https://i.pinimg.com/1200x/bf/cf/e0/bfcfe06b90ce663d2068464d749f5147.jpg)` }}
+            >
                 <div className="main-p">
                     <h2>Туториал на макияж</h2>
                     <p>Десятки разных макияжей на любой вкус</p>
@@ -36,14 +41,15 @@ const extraSlides: Slide[] = [
                         <Link className="link" to="/blog">ПОСМОТРЕТЬ</Link>
                     </button>
                 </div>
-                <img src="https://i.pinimg.com/1200x/bf/cf/e0/bfcfe06b90ce663d2068464d749f5147.jpg" alt="" />
             </div>
         )
     },
     {
         content: (
-            <div className="main2">
-                <img src={slide2Img} alt=""  />
+            <div 
+                className="main2"
+                style={{ backgroundImage: `url(${slide2Img})` }}
+            >
                 <div className="main-p2">
                     <h2>Аксессуары</h2>
                     <p>Всё для ежедневного ухода</p>
@@ -58,8 +64,11 @@ const extraSlides: Slide[] = [
 
 const Slider: FC = () => {
 
-     const firstSlide = (
-        <div className="main">
+    const firstSlide = (
+        <div 
+            className="main"
+            style={{ backgroundImage: `url(https://i.pinimg.com/1200x/28/0a/5e/280a5ef74776c17c9406f32241a57e13.jpg)` }}
+        >
             <div className="main-p">
                 <h1>Интернет - магазин SEULMATE</h1>
                 <p>Продаем лучшую корейскую косметику</p>
@@ -67,11 +76,9 @@ const Slider: FC = () => {
                     <Link className="link" to="/catalog">КАТАЛОГ</Link>
                 </button>
             </div>
-            <img src="https://i.pinimg.com/1200x/28/0a/5e/280a5ef74776c17c9406f32241a57e13.jpg" alt="" />
         </div>
     );
 
-    
     const allSlides = [firstSlide, ...extraSlides.map(s => s.content)];
     const [currentIndex, setCurrentIndex] = useState(0);
     const slideCount = allSlides.length;
@@ -89,45 +96,41 @@ const Slider: FC = () => {
     };
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            goToNext();
-        }, 20000);
+        const timer = setInterval(goToNext, 20000);
         return () => clearInterval(timer);
     }, []);
 
     return (
-        <>
-            <div className="slider-container">
-                <div className="slider">
-                    {allSlides.map((content, index) => (
-                        <div
-                            key={index}
-                            className={`slide ${index === currentIndex ? 'active' : ''}`}
-                        >
-                            {content}
-                        </div>
-                    ))}
-                </div>
-
-                <button className="slider-button prev" onClick={goToPrevious}>
-                    <img src={arrowLeftImg} alt="arrow-left"/>
-                </button>
-                <button className="slider-button next" onClick={goToNext}>
-                    <img src={arrowRightImg} alt="arrow-right"/>
-                </button>
-
-                <div className="slider-dots">
-                    {allSlides.map((_, index) => (
-                        <button
-                            key={index}
-                            className={`dot ${index === currentIndex ? 'active' : ''}`}
-                            onClick={() => goToSlide(index)}
-                        />
-                    ))}
-                </div>
+        <div className="slider-container">
+            <div className="slider">
+                {allSlides.map((content, index) => (
+                    <div
+                        key={index}
+                        className={`slide ${index === currentIndex ? 'active' : ''}`}
+                    >
+                        {content}
+                    </div>
+                ))}
             </div>
-        </>
-    )
-}
+
+            <button className="slider-button prev" onClick={goToPrevious}>
+                <img src={arrowLeftImg} alt="arrow-left"/>
+            </button>
+            <button className="slider-button next" onClick={goToNext}>
+                <img src={arrowRightImg} alt="arrow-right"/>
+            </button>
+
+            <div className="slider-dots">
+                {allSlides.map((_, index) => (
+                    <button
+                        key={index}
+                        className={`dot ${index === currentIndex ? 'active' : ''}`}
+                        onClick={() => goToSlide(index)}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+};
 
 export default Slider;

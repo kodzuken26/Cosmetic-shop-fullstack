@@ -1,148 +1,108 @@
-import { useState, type FC, type FormEventHandler } from "react";
-import axios from "axios";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useCookies } from 'react-cookie';
-import './style.scss';
+import api from "../../api/api";
+import "./style.scss";
 
-const API_URL = import.meta.env.DEV 
-    ? 'http://127.0.0.1:8000/api/' 
-    : 'https://kodzuken.pythonanywhere.com/api/';
+const Auth = () => {
+  const navigate = useNavigate();
 
-const Auth: FC = () => {
-    const [, setCookie] = useCookies(['access_token', 'user']);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-    const [formData, setFormData] = useState({
-        nickname: "",
-        phone: "",
+  const [error, setError] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
     });
+  };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-    };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [successMessage, setSuccessMessage] = useState<string | null>(null);
-    const [error, setError] = useState<string | null>(null);
-    const navigate = useNavigate();
+    setError("");
 
-    const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-        e.preventDefault();
-        console.log("Отправляемые данные для входа:", formData);
+    try {
+      setLoading(true);
 
-        if (isLoading) return;
-        setIsLoading(true);
-        setError(null);
-        setSuccessMessage(null);
+      const response = await api.post("/auth/login/", {
+        email: formData.email,
+        password: formData.password,
+      });
 
-        try {
-            
-            const response = await axios.post(`${API_URL}login/`, {
-                nickname: formData.nickname,  
-                phone: formData.phone
-            });
+      localStorage.setItem("access", response.data.access);
 
-            console.log("✅ Успешный вход!", response.data);
-            setSuccessMessage("Вы успешно вошли в аккаунт!");
-            setCookie('access_token', response.data.token, { path: '/' });
-            localStorage.setItem('access_token', response.data.token);
+      localStorage.setItem("refresh", response.data.refresh);
 
-            setCookie('user', JSON.stringify({
-                id: response.data.id,
-                name: response.data.name,
-                surname: response.data.surname,
-                nickname: response.data.nickname,
-                email: response.data.email,
-                phone: response.data.phone,
-                gender: response.data.gender,
-            }), { path: '/' });
+      localStorage.setItem("user", JSON.stringify(response.data.user));
 
-            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+      navigate("/profile/me");
+    } catch (e: any) {
+      console.log(e);
 
-            setTimeout(() => {
-                navigate('/profile');
-            }, 1500);
+      if (e.response?.data) {
+        const data = e.response.data;
 
-        } catch (err: any) {
-            console.error("Ошибка при входе:", err);
-            
-            if (err.response && err.response.data) {
-                const errorData = err.response.data;
-                
-                if (typeof errorData === 'string') {
-                    setError(errorData);
-                } else if (typeof errorData === 'object') {
-                    const firstKey = Object.keys(errorData)[0];
-                    const firstMessage = errorData[firstKey];
-                    
-                    if (Array.isArray(firstMessage)) {
-                        setError(`${firstKey}: ${firstMessage[0]}`);
-                    } else {
-                        setError(`${firstKey}: ${firstMessage}`);
-                    }
-                } else {
-                    setError("Ошибка сервера. Попробуйте позже.");
-                }
-            } else if (err.request) {
-                setError("Не удалось подключиться к серверу. Проверьте интернет-соединение.");
-            } else {
-                setError(err.message || "Произошла ошибка. Попробуйте позже.");
-            }
-        } finally {
-            setIsLoading(false);
+        const firstKey = Object.keys(data)[0];
+
+        const firstError = data[firstKey];
+
+        if (Array.isArray(firstError)) {
+          setError(firstError[0]);
+        } else {
+          setError(firstError);
         }
-    };
-    
-    return (
-        <>
-            <div className="block-forms">
-                <div className="block-input">
-                    <h1 className="title-block">Вход в аккаунт</h1>
+      } else {
+        setError("Ошибка входа");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
-                    {error && <div className="error-message">{error}</div>}
-                    {successMessage && <div className="success-message">{successMessage}</div>}
+  return (
+    <div className="block-forms">
+      <div className="block-input">
+        <h1>Авторизация</h1>
 
-                    <form className="form-board" onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <label className="title-input">Имя пользователя</label> <br />
-                            <input
-                                type="text"
-                                name="nickname"
-                                value={formData.nickname}
-                                onChange={handleChange}
-                                required
-                                placeholder="Введите ваш никнейм"
-                            />
-                        </div>
-                        <br />
-                        <div className="form-group">
-                            <label className="title-input">Номер телефона</label> <br />
-                            <input
-                                type="tel"
-                                name="phone"
-                                value={formData.phone}
-                                onChange={handleChange}
-                                required
-                                placeholder="Введите ваш номер"
-                            />
-                        </div>
-                        <br />
+        {error && <p className="error-message">{error}</p>}
 
-                        <button type="submit" disabled={isLoading} className="submit-btn">
-                            {isLoading ? 'Вход...' : 'Войти'}
-                        </button>
-                    </form>
+        <form onSubmit={handleSubmit} className="form-board">
+          <div className="form-group">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
 
-                    <p className="register-link">
-                        Нет аккаунта? <Link to="/registration">Зарегистрируйтесь</Link>
-                    </p>
-                </div>
-            </div>
-        </>
-    );
+          <div className="form-group">
+            <input
+              type="password"
+              name="password"
+              placeholder="Пароль"
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </div>
+
+          <button type="submit" className="submit-btn">
+            {loading ? "Вход..." : "Войти"}
+          </button>
+        </form>
+        <p>
+          Еще нет аккаунта? <Link to="/registration">Зарегистрироваться</Link>
+        </p>
+      </div>
+    </div>
+  );
 };
 
 export default Auth;
-

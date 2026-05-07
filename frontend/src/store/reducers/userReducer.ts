@@ -14,7 +14,7 @@ export const userReducer = (state = initialState, action: UserAction): UserState
             return { 
                 loading: false, 
                 error: null, 
-                data: action.payload  // action.payload должен быть объектом пользователя
+                data: action.payload  
             }
         case UserActionTypes.FETCH_USERS_ERROR:
             return { ...state, loading: false, error: action.payload, data: null }
@@ -23,15 +23,3 @@ export const userReducer = (state = initialState, action: UserAction): UserState
     }
 }
 
-// export const userReducer = (state = initialState, action: UserAction): UserState => {
-//     switch (action.type) {
-//         case UserActionTypes.FETCH_USERS:
-//             return { loading: true, error: null, data: [] }
-//         case UserActionTypes.FETCH_USERS_SUCCESS:
-//             return { loading: false, error: null, data: action.payload }
-//         case UserActionTypes.FETCH_USERS_ERROR:
-//             return { loading: false, error: action.payload, data: [] }
-//         default:
-//             return state
-//     }
-// }

@@ -2,18 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
-    GENDER_CHOICES = [
-        ('woman', 'Женский'),
-        ('man', 'Мужской'),
-        ('none-gender', 'Не указан'),
-    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    nickname = models.CharField(max_length=50, unique=True, null=True, verbose_name='Никнейм')
     name = models.CharField(max_length=30, verbose_name='Имя')
-    surname = models.CharField(max_length=40, null=True, blank=True, verbose_name='Фамилия')
     email = models.EmailField(max_length=40, unique=True, )
     phone = models.CharField(max_length=20, unique=True, verbose_name='Телефон')
-    gender = models.CharField(max_length=20, choices=GENDER_CHOICES, verbose_name='Пол')
 
     class Meta:
         db_table = 'Profile'
@@ -21,7 +13,7 @@ class UserProfile(models.Model):
         verbose_name_plural = 'Профили'
 
     def __str__(self):
-        return f"{self.user.name}  ({self.user.nickname})"
+        return self.email
 
 
 class Categories(models.Model):
