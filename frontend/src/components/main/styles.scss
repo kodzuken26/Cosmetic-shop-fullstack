@@ -468,5 +468,9 @@ margin: 0 auto;
     .brands-track {
         animation: scroll 18s linear infinite;
     }
+
+    .category-list{
+        flex-direction: column;
+    }
 }
 

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { useActions } from "../../../hooks/useActions";
+import "./style.scss"
 
 const MyProfile = () => {
     const { fetchProfile } = useActions();
@@ -17,12 +18,53 @@ const MyProfile = () => {
 
   return (
     <div>
-      <h1>Профиль</h1>
+      {/* <h1>Профиль</h1>
+          <div className="profile-card">
+              <div className="avatar">
+                  
+              </div>
+              <div className="info-item">
+                  <p className="info-value">{user.name}</p>
+                    <p className="info-value">{user.email}</p>
+                    <p className="info-value">{user.phone}</p>
+              </div>
+              
+        </div> */}
+      
+        <div className="profile-page">
 
-      <p>{user.name}</p>
-      <p>{user.email}</p>
-      <p>{user.phone}</p>
+  <div className="profile-card">
 
+    <div className="profile-top">
+
+      <div className="avatar">
+        {user.name?.charAt(0)}
+      </div>
+
+      <div className="profile-head">
+        <h1>{user.name}</h1>
+        <p>Личный кабинет</p>
+      </div>
+
+    </div>
+
+    <div className="profile-info">
+
+      <div className="info-item">
+        <p className="info-label">Email</p>
+        <p className="info-value">{user.email}</p>
+      </div>
+
+      <div className="info-item">
+        <p className="info-label">Телефон</p>
+        <p className="info-value">{user.phone}</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
       
     </div>
   );

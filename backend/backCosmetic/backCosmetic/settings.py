@@ -64,6 +64,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, '../frontend/dist')],
+        # 'DIRS': [r'F:\Колледж\cursovaya\deploy\frontend\dist'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -158,9 +159,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, '../frontend/dist/static'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, '../frontend/dist'),
+#     os.path.join(BASE_DIR, '../frontend/dist/assets'),
+# ]
+# STATICFILES_DIRS = [
+#     r'F:\Колледж\cursovaya\deploy\frontend\dist',
+# ]
 
 
 
