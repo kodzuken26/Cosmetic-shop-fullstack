@@ -17,6 +17,7 @@ import brand13Img from '/brand13.jpg';
 import brand14Img from '/brand14.webp';
 import brand15Img from '/brand15.webp';
 import brand16Img from '/brand16.png';
+import starImg from '/star.png';
 
 const brands = [
     brand1Img, brand2Img, brand3Img, brand4Img,
@@ -28,8 +29,11 @@ const brands = [
 const Brands: FC = () => {
     return (
         <div className="brands-block">
-            <h2>Наши партнеры</h2>
+            <div className="head-block">
+                <img src={starImg } /> <h2>Наши партнеры</h2> <img src={starImg } />
 
+            </div>
+            
             <div className="brands-marquee">
                 <div className="brands-track">
                     {[...brands, ...brands].map((img, index) => (

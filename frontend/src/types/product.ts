@@ -9,11 +9,19 @@ export interface ProductState {
         description: string;
         full_description: string;
         price: number;
-        image: ImageBitmap;
+        rating: number;
+        image: string;
         use: string;
         ingredients: string;
         size: number;
+        stock: number;
         category: string | CategoryState;
+        images?: {
+          id: number;
+          image: string;
+          is_main: boolean;
+          order: number;
+        }[];
       }[]
     | null;
   loading: boolean;
@@ -42,9 +50,11 @@ interface FetchProductSuccessAction {
     description: string;
     full_description: string;
     price: number;
-    image: ImageBitmap;
+    rating: number;
+    image: string;
     use: string;
     ingredients: string;
+    stock: number;
     size: number;
     category: string | CategoryState;
   }[];
@@ -68,11 +78,19 @@ interface FetchProductByIdSuccessAction {
     description: string;
     full_description: string;
     price: number;
-    image: ImageBitmap;
+    rating: number;           // ← добавить
+    image: string;            // ← исправить: ImageBitmap → string
     use: string;
     ingredients: string;
+    stock: number;
     size: number;
     category: string | CategoryState;
+    images?: {
+      id: number;
+      image: string;
+      is_main: boolean;
+      order: number;
+    }[];
   };
 }
 

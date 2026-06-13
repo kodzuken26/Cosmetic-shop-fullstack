@@ -461,6 +461,22 @@ $light-bg: #FFF9FC;
   align-items: center;
   justify-content: center;
 }
+.favorite-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 2;
+    background: white;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
 
 .img-catalog {
     border-radius: 26px;
@@ -470,9 +486,7 @@ $light-bg: #FFF9FC;
   transition: 0.4s ease;
 }
 
-.product-card:hover .img-catalog {
-  transform: scale(1.05);
-}
+
 
 .catalog-p {
   color: $blue;
@@ -500,37 +514,72 @@ $light-bg: #FFF9FC;
   margin-bottom: 18px;
 }
 
+// .catalog-btn {
+//   width: 100%;
+//   height: 58px;
+//   border: none;
+//   border-radius: 999px;
+//   background: linear-gradient(
+//     135deg,
+//     $blue,
+//     color.adjust($blue, $lightness: -8%)
+//   );
+
+//   cursor: pointer;
+//   transition: 0.3s ease;
+
+//   &:hover {
+//     background: linear-gradient(
+//       135deg,
+//       $dark,
+//       color.adjust($dark, $lightness: 8%)
+//     );
+
+//     transform: translateY(-2px);
+//   }
+
+//   .link {
+//     color: white;
+//     text-decoration: none;
+//     font-size: 20px;
+//     font-family: $font-default;
+//     letter-spacing: 2px;
+//   }
+// }
+
 .catalog-btn {
-  width: 100%;
+    width: 100%;
   height: 58px;
   border: none;
   border-radius: 999px;
-  background: linear-gradient(
-    135deg,
-    $blue,
-    color.adjust($blue, $lightness: -8%)
-  );
-
-  cursor: pointer;
-  transition: 0.3s ease;
-
-  &:hover {
-    background: linear-gradient(
-      135deg,
-      $dark,
-      color.adjust($dark, $lightness: 8%)
-    );
-
-    transform: translateY(-2px);
-  }
-
-  .link {
-    color: white;
-    text-decoration: none;
+  background-color: $blue;
+    position: relative;
+    font-family: $font-bold;
+    color: #FFDBED;
     font-size: 20px;
-    font-family: $font-default;
-    letter-spacing: 2px;
-  }
+
+}
+
+.cart-quantity {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #481535;
+    color: white;
+
+    border: 2px solid white;
+    border-radius: 50%;
+
+    font-size: 20px;
+    font-family: $font-bold;
 }
 
 /* ---------- EMPTY ---------- */
@@ -550,6 +599,13 @@ $light-bg: #FFF9FC;
     margin-bottom: 24px;
     line-height: 1.5;
   }
+}
+
+.show-more-container{
+     grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* ---------- LAPTOP ---------- */

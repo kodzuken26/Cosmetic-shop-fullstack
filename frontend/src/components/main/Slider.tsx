@@ -54,7 +54,7 @@ const extraSlides: Slide[] = [
                     <h2>Аксессуары</h2>
                     <p>Всё для ежедневного ухода</p>
                     <button className="main-btn">
-                        <Link className="link" to="/catalog?category=accessories">ПОДРОБНЕЕ</Link>
+                        <Link className="link" to="/catalog">ПОДРОБНЕЕ</Link>
                     </button>
                 </div>
             </div>
@@ -67,7 +67,7 @@ const Slider: FC = () => {
     const firstSlide = (
         <div 
             className="main"
-            style={{ backgroundImage: `url(https://i.pinimg.com/1200x/28/0a/5e/280a5ef74776c17c9406f32241a57e13.jpg)` }}
+            style={{ backgroundImage: `url(https://i.pinimg.com/736x/9d/4e/ff/9d4effca1e805961c77e8a2fc6a6f8c3.jpg)` }}
         >
             <div className="main-p">
                 <h1>Интернет - магазин SEULMATE</h1>

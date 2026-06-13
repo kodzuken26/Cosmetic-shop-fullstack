@@ -6,6 +6,8 @@ import { Link, useParams } from 'react-router-dom';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useActions } from '../../hooks/useActions';
 import './style.scss';
+import ProductGallery from './ProductGallery';
+import RatingStars from '../common/RatingStars';
 
 const Product: FC = () => {
     const { id } = useParams();
@@ -25,6 +27,8 @@ const Product: FC = () => {
         }
     }, [id, fetchProductById, productsData]);
 
+    
+
    
     
     if (loading) {
@@ -42,14 +46,21 @@ const Product: FC = () => {
     return (
         <div className="card-page">
             <div className="img-wrap2">
-                <img src={String(product.image)} alt={product.name} />
+                {/* <img src={String(product.image)} alt={product.name} /> */}
+                <ProductGallery images={product.images || []} />
             </div>
             
             <div className="text-card">
                 <p className="description-first">{product.description}</p>
                 <h1 className="product-name">{product.name}</h1>
                 <p className="product-price">{product.price} ₽</p>
+                {product.rating !== undefined && (
+    <RatingStars rating={product.rating} />
+                )}
+                <br></br>
+                <br></br>
                 <button className="product-btn">В КОРЗИНУ</button>
+                <p>В наличии: {product.stock ?? 0} шт.</p>
                 <p ><b>Объем:</b> {product.size} мл</p>
                 <p className="second-text">{product.full_description}</p>
                 <div>

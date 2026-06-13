@@ -1,0 +1,17 @@
+.rating-stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    
+    .star-img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+    }
+    
+    .rating-value {
+        font-size: 14px;
+        color: #8D93CB;
+        margin-left: 8px;
+    }
+}
