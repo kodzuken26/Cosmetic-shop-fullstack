@@ -5,13 +5,10 @@ from rest_framework import status
 from .models import Product, Categories, UserProfile, Cart, CartItem, Favorite
 
 
-# ==================== ТЕСТЫ МОДЕЛЕЙ ====================
-
 @pytest.mark.django_db
 class TestModels:
     
     def test_create_category(self):
-        """Тест создания категории"""
         category = Categories.objects.create(
             name='Уход за лицом',
             slug='uhod-za-licom'
@@ -20,7 +17,6 @@ class TestModels:
         assert str(category) == 'Уход за лицом'
     
     def test_create_product(self):
-        """Тест создания товара"""
         category = Categories.objects.create(name='Уход за лицом', slug='uhod')
         product = Product.objects.create(
             name='Тестовый товар',
@@ -35,7 +31,6 @@ class TestModels:
         assert str(product) == 'Тестовый товар'
     
     def test_create_user_profile(self):
-        """Тест создания профиля пользователя"""
         user = User.objects.create_user(
             username='testuser',
             email='test@example.com',
@@ -51,7 +46,6 @@ class TestModels:
         assert str(profile) == 'test@example.com'
     
     def test_add_to_cart(self):
-        """Тест добавления товара в корзину"""
         user = User.objects.create_user(username='testuser', password='123')
         category = Categories.objects.create(name='Тестовая', slug='test-cat')
         product = Product.objects.create(
@@ -75,7 +69,6 @@ class TestModels:
         assert cart.get_total_price() == 200
     
     def test_add_to_favorites(self):
-        """Тест добавления товара в избранное"""
         user = User.objects.create_user(username='testuser', password='123')
         category = Categories.objects.create(name='Тестовая', slug='test-cat')
         product = Product.objects.create(
@@ -91,28 +84,22 @@ class TestModels:
         assert str(favorite) == f"{user.email} -> {product.name}"
 
 
-# ==================== ТЕСТЫ API ====================
-
 @pytest.mark.django_db
 class TestAPI:
     
     def setup_method(self):
-        """Настройка перед каждым тестом"""
         self.client = APIClient()
     
     def test_get_products(self):
-        """Тест получения списка товаров"""
         response = self.client.get('/api/products/')
         assert response.status_code == status.HTTP_200_OK
         assert isinstance(response.data, list)
     
     def test_get_categories(self):
-        """Тест получения списка категорий"""
         response = self.client.get('/api/categories/')
         assert response.status_code == status.HTTP_200_OK
     
     def test_register_user(self):
-        """Тест регистрации нового пользователя"""
         data = {
             'name': 'Тест',
             'email': 'test@example.com',
@@ -126,8 +113,6 @@ class TestAPI:
         assert response.data['user']['email'] == 'test@example.com'
     
     def test_register_user_duplicate_email(self):
-        """Тест регистрации с уже существующим email"""
-        # Создаём пользователя
         user = User.objects.create_user(username='existing', email='existing@test.com', password='123')
         UserProfile.objects.create(
             user=user,
@@ -147,7 +132,6 @@ class TestAPI:
         assert response.status_code == status.HTTP_400_BAD_REQUEST
     
     def test_login_success(self):
-        """Тест успешной авторизации"""
         user = User.objects.create_user(
             username='testuser',
             email='test@example.com',
@@ -169,7 +153,6 @@ class TestAPI:
         assert 'access' in response.data
     
     def test_login_wrong_password(self):
-        """Тест входа с неверным паролем"""
         user = User.objects.create_user(
             username='testuser',
             email='test@example.com',
@@ -190,13 +173,10 @@ class TestAPI:
         assert response.status_code == status.HTTP_400_BAD_REQUEST
     
     def test_get_profile_unauthorized(self):
-        """Тест доступа к профилю без токена"""
         response = self.client.get('/api/profile/')
-        # При отсутствии токена сервер должен вернуть 401 Unauthorized
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
     
     def test_get_profile_authorized(self):
-        """Тест получения профиля с токеном"""
         user = User.objects.create_user(
             username='testuser',
             email='test@example.com',
@@ -209,12 +189,10 @@ class TestAPI:
             phone='89991234567'
         )
         
-        # Получаем токен
         login_data = {'email': 'test@example.com', 'password': 'testpass123'}
         login_resp = self.client.post('/api/auth/login/', login_data)
         token = login_resp.data['access']
         
-        # Запрашиваем профиль с токеном
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
         response = self.client.get('/api/profile/')
         
@@ -222,8 +200,6 @@ class TestAPI:
         assert response.data['name'] == 'Тест'
     
     def test_add_to_cart(self):
-        """Тест добавления товара в корзину"""
-        # Создаём пользователя
         user = User.objects.create_user(username='cartuser', email='cart@test.com', password='123')
         UserProfile.objects.create(
             user=user,
@@ -232,7 +208,6 @@ class TestAPI:
             phone='89991111111'
         )
         
-        # Создаём категорию и товар
         category = Categories.objects.create(name='Тестовая', slug='test-cat')
         product = Product.objects.create(
             name='Тест', 
@@ -242,12 +217,10 @@ class TestAPI:
             category=category
         )
         
-        # Получаем токен
         login_data = {'email': 'cart@test.com', 'password': '123'}
         login_resp = self.client.post('/api/auth/login/', login_data)
         token = login_resp.data['access']
         
-        # Добавляем товар в корзину
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
         response = self.client.post('/api/cart/add/', {'product_id': product.id, 'quantity': 2})
         
@@ -256,8 +229,6 @@ class TestAPI:
         assert response.data['items'][0]['quantity'] == 2
     
     def test_add_to_favorites(self):
-        """Тест добавления товара в избранное"""
-        # Создаём пользователя
         user = User.objects.create_user(username='favuser', email='fav@test.com', password='123')
         UserProfile.objects.create(
             user=user,
@@ -266,7 +237,6 @@ class TestAPI:
             phone='89992222222'
         )
         
-        # Создаём категорию и товар
         category = Categories.objects.create(name='Тестовая', slug='test-cat')
         product = Product.objects.create(
             name='Тест', 
@@ -275,12 +245,10 @@ class TestAPI:
             category=category
         )
         
-        # Получаем токен
         login_data = {'email': 'fav@test.com', 'password': '123'}
         login_resp = self.client.post('/api/auth/login/', login_data)
         token = login_resp.data['access']
         
-        # Добавляем товар в избранное
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
         response = self.client.post('/api/favorites/add/', {'product_id': product.id})
         
@@ -288,12 +256,10 @@ class TestAPI:
         assert response.data['product']['id'] == product.id
     
     def test_get_blog_posts(self):
-        """Тест получения списка статей блога"""
         response = self.client.get('/api/blog/')
         assert response.status_code == status.HTTP_200_OK
     
     def test_get_skin_test_questions(self):
-        """Тест получения вопросов для теста кожи"""
         response = self.client.get('/api/test/questions/')
         assert response.status_code == status.HTTP_200_OK
     
@@ -303,6 +269,5 @@ class TestAPI:
         assert response.status_code in [status.HTTP_200_OK, status.HTTP_400_BAD_REQUEST]
     
     def test_get_latest_products(self):
-        """Тест получения последних товаров (новинок)"""
         response = self.client.get('/api/products/latest/')
         assert response.status_code == status.HTTP_200_OK

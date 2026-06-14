@@ -78,7 +78,7 @@ const Registration = () => {
       <div className="block-input">
         <h1>Регистрация</h1>
 
-        {error && <p>{error}</p>}
+        {error && <p className="error-message">{error}</p>}
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">

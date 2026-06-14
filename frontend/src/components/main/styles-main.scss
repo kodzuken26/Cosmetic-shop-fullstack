@@ -23,7 +23,6 @@ $values: #8d93cb, center, bold;
 .container {
   max-width: 1830px;
   margin: 0 auto;
-  // padding: 0 20px;
 }
 
 .head-block {
@@ -68,19 +67,19 @@ $values: #8d93cb, center, bold;
   position: relative;
   padding-right: 10px;
 
-    &:not(:last-child)::after {
-        content: "";
+  &:not(:last-child)::after {
+    content: "";
 
-        position: absolute;
+    position: absolute;
 
-        right: -15px;
-        top: 10px;
+    right: -15px;
+    top: 10px;
 
-        width: 1px;
-        height: 80%;
+    width: 1px;
+    height: 80%;
 
-        background: rgba(72, 21, 53, 0.12);
-    }
+    background: rgba(72, 21, 53, 0.12);
+  }
 
   img {
     width: 90px;
@@ -303,8 +302,6 @@ $values: #8d93cb, center, bold;
   }
 }
 
-/* ===== TABLET ===== */
-
 @media screen and (max-width: 1300px) {
   .latest-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -334,8 +331,6 @@ $values: #8d93cb, center, bold;
     }
   }
 }
-
-/* ===== MOBILE ===== */
 
 @media screen and (max-width: 768px) {
   .latest-products {
@@ -372,8 +367,6 @@ $values: #8d93cb, center, bold;
   }
 }
 
-/* ===== SMALL MOBILE ===== */
-
 @media screen and (max-width: 560px) {
   .latest-grid {
     grid-template-columns: 1fr;
@@ -396,8 +389,6 @@ $values: #8d93cb, center, bold;
   }
 }
 
-/* ===== EXTRA SMALL ===== */
-
 @media screen and (max-width: 380px) {
   .latest-products {
     h2 {
@@ -417,8 +408,6 @@ $values: #8d93cb, center, bold;
     }
   }
 }
-
-/* ===== TABLET ===== */
 
 @media screen and (max-width: 1200px) {
   .about-block {
@@ -440,8 +429,6 @@ $values: #8d93cb, center, bold;
     width: 400px;
   }
 }
-
-/* ===== MOBILE ===== */
 
 @media screen and (max-width: 900px) {
   .about-block {
@@ -472,8 +459,6 @@ $values: #8d93cb, center, bold;
   }
 }
 
-/* ===== SMALL MOBILE ===== */
-
 @media screen and (max-width: 600px) {
   .about-block {
     margin: 80px auto;
@@ -498,8 +483,6 @@ $values: #8d93cb, center, bold;
   }
 }
 
-/* ===== EXTRA SMALL ===== */
-
 @media screen and (max-width: 380px) {
   .about-text {
     h2 {
@@ -511,8 +494,6 @@ $values: #8d93cb, center, bold;
     }
   }
 }
-
-/* ===== TABLET ===== */
 
 @media screen and (max-width: 1200px) {
   .info-list {
@@ -530,8 +511,6 @@ $values: #8d93cb, center, bold;
     }
   }
 }
-
-/* ===== MOBILE ===== */
 
 @media screen and (max-width: 768px) {
   .info-block {
@@ -574,8 +553,6 @@ $values: #8d93cb, center, bold;
     }
   }
 }
-
-/* ===== SMALL MOBILE ===== */
 
 @media screen and (max-width: 420px) {
   .info-list {

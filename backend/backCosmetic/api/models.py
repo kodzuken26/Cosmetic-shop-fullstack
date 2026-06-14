@@ -79,16 +79,13 @@ class Cart(models.Model):
         return f"Корзина пользователя {self.user.username}"
     
     def get_total_price(self):
-        """Общая стоимость всех товаров в корзине с учётом цены из CartItem"""
         total = 0
         for item in self.items.all():
-            # Берём цену из CartItem (если есть), иначе из продукта
             item_price = item.price if item.price else item.product.price
             total += item_price * item.quantity
         return total
     
     def get_total_items(self):
-        """Общее количество товаров в корзине"""
         return sum(item.quantity for item in self.items.all())
 
 class CartItem(models.Model):
@@ -101,18 +98,16 @@ class CartItem(models.Model):
         db_table = 'cart_items'
         verbose_name = 'Товар в корзине'
         verbose_name_plural = 'Товары в корзине'
-        unique_together = ('cart', 'product')  # один товар в корзине может быть только один раз
+        unique_together = ('cart', 'product')  
     
     def __str__(self):
         return f"{self.product.name} x {self.quantity}"
     
     def get_total_price(self):
-        # Используем сохранённую цену из CartItem, а не из Product
         item_price = self.price if self.price else self.product.price
         return item_price * self.quantity
     
     def check_stock(self):
-        """Проверка наличия на складе"""
         return self.quantity <= self.product.stock
     
 
@@ -131,7 +126,6 @@ class Order(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', verbose_name='Статус заказа')
     total_price = models.DecimalField(max_digits=10, decimal_places=0, default=0, verbose_name='Общая сумма')
     
-    # Адрес доставки
     full_name = models.CharField(max_length=100, verbose_name='ФИО')
     phone = models.CharField(max_length=20, verbose_name='Телефон')
     city = models.CharField(max_length=100, verbose_name='Город')
@@ -174,7 +168,7 @@ class Favorite(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('user', 'product')  # один пользователь — один товар в избранном
+        unique_together = ('user', 'product')  
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранное'
 
@@ -211,15 +205,12 @@ class BlogBlock(models.Model):
     post = models.ForeignKey(BlogPost, on_delete=models.CASCADE, related_name='blocks', verbose_name='Статья')
     block_type = models.CharField(max_length=20, choices=BLOCK_TYPES, verbose_name='Тип блока')
     order = models.PositiveIntegerField(default=0, verbose_name='Порядок')
-    
-    # Поля для текста / цитаты
+   
     text_content = models.TextField(blank=True, null=True, verbose_name='Текст')
     
-    # Поля для изображения
     image = models.ImageField(upload_to='blog_images', blank=True, null=True, verbose_name='Изображение')
     image_alt = models.CharField(max_length=200, blank=True, null=True, verbose_name='Alt для изображения')
     
-    # Поля для видео
     video_url = models.URLField(blank=True, null=True, verbose_name='Ссылка на видео (YouTube, Vimeo)')
     
     class Meta:
@@ -248,7 +239,6 @@ class SkinType(models.Model):
 
 
 class Question(models.Model):
-    """Вопрос теста"""
     text = models.TextField(verbose_name='Текст вопроса')
     order = models.PositiveIntegerField(default=0, verbose_name='Порядок')
 
@@ -262,7 +252,6 @@ class Question(models.Model):
 
 
 class AnswerOption(models.Model):
-    """Вариант ответа на вопрос"""
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
     text = models.CharField(max_length=255, verbose_name='Текст ответа')
     value = models.IntegerField(verbose_name='Числовое значение (вес)')
@@ -276,7 +265,6 @@ class AnswerOption(models.Model):
 
 
 class SkinTypeRule(models.Model):
-    """Правило определения типа кожи по сумме баллов"""
     skin_type = models.ForeignKey(SkinType, on_delete=models.CASCADE, related_name='rules')
     min_score = models.IntegerField(verbose_name='Минимальный балл')
     max_score = models.IntegerField(verbose_name='Максимальный балл')
@@ -290,7 +278,6 @@ class SkinTypeRule(models.Model):
 
 
 class SkinCareRecommendation(models.Model):
-    """Рекомендация товара для типа кожи"""
     skin_type = models.ForeignKey(SkinType, on_delete=models.CASCADE, related_name='recommendations')
     product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='skin_recommendations')
     order = models.PositiveIntegerField(default=0, verbose_name='Порядок')

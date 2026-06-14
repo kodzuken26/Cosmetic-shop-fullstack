@@ -13,9 +13,9 @@ const Main: FC = () => {
       <div className="container">
         <Slider />
         <StartInfo />
-              <Categories />
-              <LatestProducts/>
-              <AboutInfo/>
+        <Categories />
+        <LatestProducts />
+        <AboutInfo />
         <Brands />
       </div>
     </>

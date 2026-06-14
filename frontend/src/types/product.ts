@@ -78,8 +78,8 @@ interface FetchProductByIdSuccessAction {
     description: string;
     full_description: string;
     price: number;
-    rating: number;           // ← добавить
-    image: string;            // ← исправить: ImageBitmap → string
+    rating: number;           
+    image: string;            
     use: string;
     ingredients: string;
     stock: number;

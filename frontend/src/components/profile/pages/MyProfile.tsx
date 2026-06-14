@@ -1,11 +1,9 @@
 import { useEffect } from "react";
-// import { useLocation } from "react-router-dom";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { useActions } from "../../../hooks/useActions";
 import "./style.scss";
 
 const MyProfile = () => {
-//   const location = useLocation();
   const { fetchProfile } = useActions();
   const { user, loading, error } = useTypedSelector((state) => state.auth);
 

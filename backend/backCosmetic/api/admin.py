@@ -31,7 +31,7 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
-    extra = 3  # количество пустых полей для загрузки
+    extra = 3 
     fields = ["image", "is_main", "order"]
 
 
@@ -46,7 +46,7 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(ProductImage)
 class ProductImageAdmin(admin.ModelAdmin):
     list_display = ["product", "is_main", "order"]
-    list_editable = ["is_main", "order"]  # можно менять прямо в списке
+    list_editable = ["is_main", "order"] 
 
 
 @admin.register(Categories)
@@ -85,7 +85,6 @@ class CartItemAdmin(admin.ModelAdmin):
 
 
 class OrderItemInline(admin.TabularInline):
-    """Для отображения товаров внутри заказа"""
 
     model = OrderItem
     extra = 0
@@ -124,7 +123,6 @@ class OrderAdmin(admin.ModelAdmin):
     )
 
     def save_model(self, request, obj, form, change):
-        """При сохранении заказа из админки обновляем дату изменения"""
         obj.save()
 
     actions = ["mark_as_processing", "mark_as_shipped", "mark_as_delivered"]

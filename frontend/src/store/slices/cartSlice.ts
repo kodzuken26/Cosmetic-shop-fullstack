@@ -28,13 +28,11 @@ const initialState: CartState = {
     error: null,
 };
 
-// Загрузка корзины
 export const fetchCart = createAsyncThunk('cart/fetchCart', async () => {
     const response = await api.get('/cart/');
     return response.data;
 });
 
-// Добавление товара в корзину
 export const addToCart = createAsyncThunk(
     'cart/addToCart',
     async ({ product_id, quantity = 1, price }: { product_id: number; quantity?: number; price?: number }) => {
@@ -43,7 +41,6 @@ export const addToCart = createAsyncThunk(
     }
 );
 
-// Удаление товара из корзины
 export const removeFromCart = createAsyncThunk(
     'cart/removeFromCart',
     async (item_id: number) => {
@@ -52,7 +49,6 @@ export const removeFromCart = createAsyncThunk(
     }
 );
 
-// Обновление количества товара
 export const updateCartItem = createAsyncThunk(
     'cart/updateCartItem',
     async ({ item_id, quantity }: { item_id: number; quantity: number }) => {
@@ -102,13 +98,22 @@ const cartSlice = createSlice({
             })
             .addCase(updateCartItem.fulfilled, (state, action) => {
                 state.loading = false;
-                state.items = action.payload.items;
                 state.total_price = action.payload.total_price;
                 state.total_items = action.payload.total_items;
+                
+                const updatedItem = action.payload.items.find(
+                    (item: CartItem) => item.id === action.meta.arg.item_id
+                );
+                
+                if (updatedItem) {
+                    const index = state.items.findIndex(item => item.id === updatedItem.id);
+                    if (index !== -1) {
+                        state.items[index] = updatedItem;
+                    }
+                }
             });
     },
 });
 
-// Экспортируем actions и reducer
 export const { clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

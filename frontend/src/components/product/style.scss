@@ -1,170 +1,3 @@
-
-
-// @font-face {
-//     font-family: "fontDefault";
-//     src: url(/fonts/CormorantSC-Medium.ttf)
-// }
-// @font-face {
-//     font-family: "boldFont";
-//     src: url(/fonts/CormorantSC-Bold.ttf);
-// }
-
-// $font-bold: "boldFont", sans-serif;
-// $font-default: "fontDefault", sans-serif;
-
-
-// .card-page{
-//     display: flex;
-//     justify-content: space-between;
-//     margin: 80px 20px;
-// }
-
-// .img-wrap2{
-//     width: 100%;
-//     // height: 500px;
-//     img{
-//         object-fit: cover;
-//         background: #F7F4FA;
-// border-radius: 30px;
-// padding: 40px;
-//     }
-// }
-// .product-name{
-//     font-size: 42px;
-//     line-height: 1.2;
-//     color: #481535;
-//     font-family: $font-bold;
-// }
-// .text-card{
-//     width: 100%;
-//     margin: 40px 0 0 50px;
-//     p{
-//         margin: 20px 0;
-//     }
-//     color: #692550;
-// }
-
-// .description-first{
-//     text-transform: uppercase;
-//     color: #8D93CB;
-//     font-family: $font-default;
-//     font-size: 18px;
-// }
-// .product-price{
-//     font-size: 26px;
-//     font-family: $font-bold;
-// }
-// .product-btn{
-//     background-color: #8D93CB;
-//     color: white;
-//     font-size: 20px;
-//     border: none;
-//     border-radius: 50px;
-//     padding: 20px 50px;
-//     font-family: $font-default;
-// }
-// .title{
-//     font-size: 24px;
-// }
-// .second-text{
-//     font-size: 18px;
-//     color: #8D93CB;
-//     text-align: justify;
-//     font-family: $font-default;
-// }
-
-// .product-group{
-//     display: flex;
-//     align-items: center;
-//     justify-content: space-between;
-//     border-bottom:2px solid #692550 ;
-//     transition: 0.2s;
-    
-// }
-// .hidden{
-//     display: none;
-// }
-
-// .button__reset{
-//     background-color: #692550;
-//     font-family: $font-default;
-//     margin-top: 20px;
-//     font-size: 24px;
-//     border: none;
-//     border-radius: 40px;
-//     padding: 10px 15px;
-//     .link{
-//         color: white;
-//         text-decoration: none;
-//     }
-    
-// }
-
-// @media screen and (min-width: 700px) and (max-width: 1200px){
-    
-//     img{
-//         width: 400px;
-//         height: 600px;
-//     }
-//     .text-card{
-//         margin: 20px 0 0 30px !important;
-//     }
-    
-//     .description-first{
-//         font-size: 16px !important;
-//     }
-//     h1{
-//         font-size: 20px !important;
-//     }
-//     .second-text{
-//         font-size: 16px !important;
-//     }
-//     .product-btn{
-//         padding: 10px 20px !important;
-//         font-size: 16px !important;
-//     }
-// }
-
-// @media screen and (min-width: 375px) and (max-width: 699px){
-//     .card-page{
-//         flex-direction: column;
-//         margin: 230px 20px;
-//     }
-//     .text-card{
-//         margin: 40px 0 0 0 !important;
-//         p{
-//             margin: 10px 0 !important;
-//         }
-//     }
-//     h1{
-//         font-size: 26px !important;
-//     }
-//     .second-text{
-//         font-size: 16px !important;
-//     }
-// }
-
-// @media screen and (max-width: 374px){
-//     .card-page{
-//         flex-direction: column;
-//         margin: 250px 20px;
-//     }
-//     .text-card{
-//         margin: 40px 0 0 0 !important;
-//         p{
-//             margin: 10px 0 !important;
-//         }
-//     }
-//     h1{
-//         font-size: 26px !important;
-//     }
-//     .second-text{
-//         font-size: 16px !important;
-//     }
-// }
-
-
-
 @use "sass:color";
 
 @font-face {
@@ -181,18 +14,16 @@ $font-bold: "boldFont", sans-serif;
 $font-default: "fontDefault", sans-serif;
 
 $dark: #481535;
-$pink: #FFDBED;
-$blue: #8D93CB;
+$pink: #ffdbed;
+$blue: #8d93cb;
 $white: #ffffff;
-$light-bg: #FFF9FC;
+$light-bg: #fff9fc;
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-/* ---------- PAGE ---------- */
 
 .card-page {
   max-width: 1800px;
@@ -204,20 +35,14 @@ $light-bg: #FFF9FC;
   gap: 60px;
 }
 
-/* ---------- IMAGE ---------- */
-
 .img-wrap2 {
   width: 50%;
   min-width: 420px;
   border-radius: 40px;
   padding: 40px;
-  box-shadow:
-    0 12px 40px rgba(141, 147, 203, 0.12);
-//   position: sticky;
+  box-shadow: 0 12px 40px rgba(141, 147, 203, 0.12);
   top: 120px;
 }
-
-/* ---------- TEXT SIDE ---------- */
 
 .text-card {
   width: 50%;
@@ -248,66 +73,60 @@ $light-bg: #FFF9FC;
   margin-bottom: 28px;
 }
 
-/* ---------- BUTTON ---------- */
-
 .product-btn {
+  width: 50%;
+  height: 58px;
   border: none;
   border-radius: 999px;
-
-  background: linear-gradient(
-    135deg,
-    $blue,
-    color.adjust($blue, $lightness: -8%)
-  );
-
-  color: white;
-
-  padding: 18px 54px;
-
-  font-size: 24px;
-  letter-spacing: 2px;
-
-  font-family: $font-default;
-
-  cursor: pointer;
-
-  transition: 0.3s ease;
-
-  margin-bottom: 30px;
-
-  &:hover {
-    transform: translateY(-3px);
-
-    background: linear-gradient(
-      135deg,
-      $dark,
-      color.adjust($dark, $lightness: 8%)
-    );
-
-    box-shadow:
-      0 10px 30px rgba(72, 21, 53, 0.18);
-  }
+  background-color: $blue;
+  position: relative;
+  font-family: $font-bold;
+  color: #ffdbed;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
-/* ---------- INFO ---------- */
+.cart-quantity {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #481535;
+  color: white;
+
+  border: 2px solid white;
+  border-radius: 50%;
+
+  font-size: 20px;
+  font-family: $font-bold;
+}
 
 .text-card p {
   margin-bottom: 20px;
+  font-family: $font-default;
+  font-size: 20px;
 }
 
 .text-card b {
   color: $dark;
+  font-family: $font-bold;
+  font-size: 20px;
 }
 
 .second-text {
   color: rgba(72, 21, 53, 0.75);
-  font-size: 20px;
+  font-size: 24px;
   line-height: 1.8;
   font-family: $font-default;
   text-align: justify;
 }
-
-/* ---------- ACCORDION ---------- */
 
 .product-group {
   display: flex;
@@ -325,8 +144,6 @@ $light-bg: #FFF9FC;
   }
 
   img {
-    // width: 22px;
-    // height: 22px;
     transition: 0.3s ease;
 
     &:hover {
@@ -340,8 +157,6 @@ $light-bg: #FFF9FC;
   font-family: $font-bold;
   color: $dark;
 }
-
-/* ---------- BACK BUTTON ---------- */
 
 .button__reset {
   margin-top: 40px;
@@ -372,8 +187,6 @@ $light-bg: #FFF9FC;
     font-family: $font-default;
   }
 }
-
-/* ---------- TABLET ---------- */
 
 .product-gallery {
   display: flex;
@@ -411,7 +224,7 @@ $light-bg: #FFF9FC;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #FFDBED;
+    background: #ffdbed;
     border-radius: 20px;
   }
 }
@@ -434,25 +247,22 @@ $light-bg: #FFF9FC;
 
   transition: 0.25s ease;
 
-  box-shadow:
-    0 6px 18px rgba(141, 147, 203, 0.12);
+  box-shadow: 0 6px 18px rgba(141, 147, 203, 0.12);
 
   &:hover {
     transform: translateY(-4px);
 
-    border-color: #FFDBED;
+    border-color: #ffdbed;
 
-    box-shadow:
-      0 10px 24px rgba(72, 21, 53, 0.12);
+    box-shadow: 0 10px 24px rgba(72, 21, 53, 0.12);
   }
 
   &.active {
-    border-color: #8D93CB;
+    border-color: #8d93cb;
 
     background: #fff7fb;
 
-    box-shadow:
-      0 0 0 4px rgba(141, 147, 203, 0.18);
+    box-shadow: 0 0 0 4px rgba(141, 147, 203, 0.18);
   }
 }
 
@@ -469,18 +279,14 @@ $light-bg: #FFF9FC;
 
   background: #fff7fb;
 
-  border: 2px dashed #FFDBED;
+  border: 2px dashed #ffdbed;
 
-  color: #8D93CB;
+  color: #8d93cb;
 
   font-size: 28px;
 
   font-family: $font-default;
 }
-
-/* =========================
-   ADAPTIVE
-========================= */
 
 @media screen and (max-width: 1200px) {
   .main-image {
@@ -577,8 +383,6 @@ $light-bg: #FFF9FC;
   }
 }
 
-/* ---------- MOBILE ---------- */
-
 @media screen and (max-width: 900px) {
   .card-page {
     flex-direction: column;
@@ -623,8 +427,6 @@ $light-bg: #FFF9FC;
     }
   }
 }
-
-/* ---------- SMALL MOBILE ---------- */
 
 @media screen and (max-width: 480px) {
   .card-page {

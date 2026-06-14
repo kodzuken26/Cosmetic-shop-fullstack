@@ -28,15 +28,14 @@ class ProductImageSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    images = ProductImageSerializer(many=True, read_only=True)  # все картинки товара
-    main_image = serializers.SerializerMethodField()  # главное изображение
+    images = ProductImageSerializer(many=True, read_only=True) 
+    main_image = serializers.SerializerMethodField()  
 
     class Meta:
         model = Product
         fields = "__all__"
 
     def get_main_image(self, obj):
-        """Возвращает главное изображение или первое, если главное не указано"""
         main = obj.images.filter(is_main=True).first()
         if main:
             return main.image.url
@@ -129,7 +128,6 @@ class CartItemSerializer(serializers.ModelSerializer):
     product_price = serializers.DecimalField(
         source="product.price", read_only=True, max_digits=8, decimal_places=0
     )
-    # product_image = serializers.SerializerMethodField()
     image_url = serializers.SerializerMethodField() 
     total_price = serializers.SerializerMethodField()
 
@@ -145,15 +143,12 @@ class CartItemSerializer(serializers.ModelSerializer):
             "price",
             "total_price",
         ]
-
     def get_image_url(self, obj):
-        request = self.context.get('request')
-        if obj.product.image and request:
-            return request.build_absolute_uri(obj.product.image.url)
+        if obj.product.image:
+            return obj.product.image.url 
         return None
 
     def get_total_price(self, obj):
-        # Используем цену из CartItem (если есть), иначе из продукта
         item_price = obj.price if obj.price else obj.product.price
         return item_price * obj.quantity
 
@@ -171,10 +166,8 @@ class CartSerializer(serializers.ModelSerializer):
         fields = ["id", "items", "total_price", "total_items", "created_at", "updated_at"]
 
     def get_total_price(self, obj):
-        """Общая стоимость корзины без учёта бонусных товаров (price=0)"""
         total = 0
         for item in obj.items.all():
-            # Если цена в CartItem = 0 (бонус), пропускаем
             if item.price == 0:
                 continue
             item_price = item.price if item.price else item.product.price
@@ -182,7 +175,6 @@ class CartSerializer(serializers.ModelSerializer):
         return total
 
     def get_total_items(self, obj):
-        """Общее количество товаров в корзине (включая бонусы)"""
         return sum(item.quantity for item in obj.items.all())
 
 class OrderItemSerializer(serializers.ModelSerializer):

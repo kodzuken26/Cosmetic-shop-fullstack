@@ -79,26 +79,23 @@ function App() {
 
           <Route path="/registration" element={<Registration />} />
 
-            <Route path="/auth" element={<Auth />} />
-             <Route path="/skin-test" element={<SkinTest />} />
-
-          {/* PROFILE */}
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/skin-test" element={<SkinTest />} />
 
           <Route path="/profile" element={<ProfileLayout />}>
             <Route index element={<Navigate to="me" replace />} />
 
-            <Route path="me" element={<MyProfile key={location.pathname}/>} />
+            <Route path="me" element={<MyProfile key={location.pathname} />} />
 
             <Route path="favorites" element={<Favorites />} />
 
-                      <Route path="cart" element={<Cart />} />
-                      <Route path="orders" element={<Orders />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="orders" element={<Orders />} />
           </Route>
 
-                  <Route path="/blog" element={<Blog />} />
-                  <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/checkout" element={<Checkout />} />
-          
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
 
         <Footer />

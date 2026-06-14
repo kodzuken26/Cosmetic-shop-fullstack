@@ -104,7 +104,6 @@ $font-default: "defaultFont", sans-serif;
     }
 }
 
-/* пустое избранное */
 
 .favorites-empty {
     max-width: 520px;
@@ -175,7 +174,6 @@ $font-default: "defaultFont", sans-serif;
     color: inherit;
     text-decoration: none;
 }
-/* ====== ADAPTIVE ====== */
 
 @media screen and (max-width: 1400px) {
     .favorites-grid {

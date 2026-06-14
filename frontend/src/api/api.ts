@@ -8,15 +8,6 @@ const api = axios.create({
   baseURL: API_URL,
 });
 
-// api.interceptors.request.use((config) => {
-//   const token = localStorage.getItem("access");
-
-//   if (token && token !== "undefined" && token !== "null") {
-//     config.headers.Authorization = `Bearer ${token}`;
-//   }
-
-//   return config;
-// });
 
 
 api.interceptors.request.use((config) => {
@@ -26,7 +17,7 @@ api.interceptors.request.use((config) => {
   if (isPublic) return config;
 
     const token = localStorage.getItem("access");
-    console.log("🔐 Токен в запросе:", token ? "есть" : "НЕТ", config.url);
+    console.log(" Токен в запросе:", token ? "есть" : "НЕТ", config.url);
   if (token && token !== "undefined" && token !== "null") {
     config.headers.Authorization = `Bearer ${token}`;
   }

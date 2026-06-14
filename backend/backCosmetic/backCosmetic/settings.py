@@ -64,7 +64,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, '../frontend/dist')],
-        # 'DIRS': [r'F:\Колледж\cursovaya\deploy\frontend\dist'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,23 +115,14 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #     'rest_framework.permissions.AllowAny',
-    # ),
-
-    # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-
-
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    # ],
+    
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication', # Опционально для token-auth
+        'rest_framework.authentication.TokenAuthentication', 
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    #'PAGE_SIZE': 10, # Пагинация по 10 объектов
+   
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema', 
 }
 
@@ -159,18 +149,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, '../frontend/dist'),
-#     os.path.join(BASE_DIR, '../frontend/dist/assets'),
-# ]
-# STATICFILES_DIRS = [
-#     r'F:\Колледж\cursovaya\deploy\frontend\dist',
-# ]
 
 
 
 
-DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760 #значение указано в байтах
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760 
 
 
 SIMPLE_JWT = {

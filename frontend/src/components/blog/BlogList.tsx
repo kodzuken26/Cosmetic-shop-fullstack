@@ -1,4 +1,4 @@
-import starImg from '/star.png';
+import starImg from "/star.png";
 
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -19,11 +19,10 @@ const BlogList = () => {
 
   return (
     <div className="blog-list">
-          <div className="head-block">
-              <img src={starImg } /> <h1>Блог</h1> <img src={starImg } />
+      <div className="head-block">
+        <img src={starImg} /> <h1>Блог</h1> <img src={starImg} />
       </div>
-          
-          
+
       <Link to="/skin-test" className="test-button-link">
         Узнать свой тип кожи
       </Link>

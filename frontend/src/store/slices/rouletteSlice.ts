@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../api/api';
 
-// Временный интерфейс для товара в рулетке
 interface RouletteProduct {
     id: number;
     name: string;

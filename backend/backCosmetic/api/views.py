@@ -1,4 +1,3 @@
-
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -51,7 +50,6 @@ class ProductImageViewSet(viewsets.ModelViewSet):
     serializer_class = ProductImageSerializer
 
     def perform_create(self, serializer):
-        # При создании проверяем, если is_main=True, сбрасываем флаг у других
         if serializer.validated_data.get("is_main"):
             product = serializer.validated_data["product"]
             product.images.filter(is_main=True).update(is_main=False)
@@ -59,12 +57,11 @@ class ProductImageViewSet(viewsets.ModelViewSet):
 
 
 class LatestProductsView(APIView):
-    """Возвращает последние 5 добавленных товаров"""
 
     permission_classes = [AllowAny]
 
     def get(self, request):
-        latest_products = Product.objects.all().order_by("-id")[:4]  # последние 5 по id
+        latest_products = Product.objects.all().order_by("-id")[:4]
         serializer = ProductSerializer(
             latest_products, many=True, context={"request": request}
         )
@@ -72,12 +69,10 @@ class LatestProductsView(APIView):
 
 
 class RouletteProductsView(APIView):
-    """Возвращает 10 случайных товаров (можно из новинок)"""
 
     permission_classes = [AllowAny]
 
     def get(self, request):
-        # Берём 10 случайных товаров (можно заменить на последние 20)
         products = Product.objects.all().order_by("?")[:10]
         serializer = ProductSerializer(
             products, many=True, context={"request": request}
@@ -189,7 +184,6 @@ class UserProfileAPIView(APIView):
 
 
 class FavoriteListAPIView(APIView):
-    """Список избранных товаров текущего пользователя"""
 
     permission_classes = [IsAuthenticated]
 
@@ -202,7 +196,6 @@ class FavoriteListAPIView(APIView):
 
 
 class AddToFavoriteAPIView(APIView):
-    """Добавить товар в избранное"""
 
     permission_classes = [IsAuthenticated]
 
@@ -223,7 +216,6 @@ class AddToFavoriteAPIView(APIView):
 
 
 class RemoveFromFavoriteAPIView(APIView):
-    """Удалить товар из избранного"""
 
     permission_classes = [IsAuthenticated]
 
@@ -236,29 +228,18 @@ class RemoveFromFavoriteAPIView(APIView):
             return Response({"error": "Товар не в избранном"}, status=404)
 
 
-# class CartAPIView(APIView):
-#     """Получение корзины текущего пользователя"""
-
-#     permission_classes = [IsAuthenticated]
-
-#     def get(self, request):
-#         cart, created = Cart.objects.get_or_create(user=request.user)
-#         serializer = CartSerializer(cart)
-#         return Response(serializer.data, status=status.HTTP_200_OK)
 class CartAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        print(f"🔍 Пользователь: {request.user.email}")
         cart, created = Cart.objects.get_or_create(user=request.user)
-        print(f"🔍 Корзина: id={cart.id}, created={created}")
-        print(f"🔍 Количество товаров в корзине: {cart.items.count()}")
-        
+
         for item in cart.items.all():
             print(f"   - {item.product.name} x {item.quantity}")
-        
-        serializer = CartSerializer(cart, context={'request': request})
+
+        serializer = CartSerializer(cart, context={"request": request})
         return Response(serializer.data, status=200)
+
 
 class AddToCartAPIView(APIView):
     permission_classes = [IsAuthenticated]
@@ -266,7 +247,7 @@ class AddToCartAPIView(APIView):
     def post(self, request):
         product_id = request.data.get("product_id")
         quantity = request.data.get("quantity", 1)
-        price = request.data.get('price')
+        price = request.data.get("price")
 
         if not product_id:
             return Response({"error": "product_id обязателен"}, status=400)
@@ -278,13 +259,12 @@ class AddToCartAPIView(APIView):
 
         cart, _ = Cart.objects.get_or_create(user=request.user)
 
-        # Определяем цену для сохранения
         item_price = price if price is not None else product.price
 
         cart_item, created = CartItem.objects.get_or_create(
             cart=cart,
             product=product,
-            defaults={"quantity": quantity, "price": item_price}
+            defaults={"quantity": quantity, "price": item_price},
         )
 
         if not created:
@@ -297,13 +277,11 @@ class AddToCartAPIView(APIView):
             product.stock -= quantity
             product.save()
 
-        serializer = CartSerializer(cart, context={'request': request})
+        serializer = CartSerializer(cart, context={"request": request})
         return Response(serializer.data, status=200)
 
-        # ❌ НИЧЕГО НЕ ПИШИ ПОСЛЕ ЭТОГО RETURN!
 
 class RemoveFromCartAPIView(APIView):
-    """Удаление товара из корзины"""
 
     permission_classes = [IsAuthenticated]
 
@@ -321,7 +299,6 @@ class RemoveFromCartAPIView(APIView):
 
 
 class UpdateCartItemAPIView(APIView):
-    """Обновление количества товара в корзине"""
 
     permission_classes = [IsAuthenticated]
 
@@ -367,46 +344,43 @@ class CreateOrderView(APIView):
         cart_items = cart.items.all()
 
         if not cart_items:
-            return Response({'error': 'Корзина пуста'}, status=400)
+            return Response({"error": "Корзина пуста"}, status=400)
 
-        address_data = request.data.get('address', {})
+        address_data = request.data.get("address", {})
         if not address_data:
-            return Response({'error': 'Не указан адрес доставки'}, status=400)
+            return Response({"error": "Не указан адрес доставки"}, status=400)
 
-        # Проверяем остатки и уменьшаем количество товара на складе
         for item in cart_items:
             product = item.product
             if product.stock < item.quantity:
-                return Response({
-                    'error': f'Недостаточно товара "{product.name}" на складе. Доступно: {product.stock}'
-                }, status=400)
-            # Уменьшаем остаток ТОЛЬКО для платных товаров (price != 0)
+                return Response(
+                    {
+                        "error": f'Недостаточно товара "{product.name}" на складе. Доступно: {product.stock}'
+                    },
+                    status=400,
+                )
             if item.price != 0:
                 product.stock -= item.quantity
                 product.save()
 
-        # Рассчитываем общую сумму заказа (без бонусных товаров)
         total_price = 0
         for item in cart_items:
-            # Если цена в CartItem = 0 (бонус) — не добавляем в сумму
             if item.price != 0:
                 item_price = item.price if item.price else item.product.price
                 total_price += item_price * item.quantity
 
-        # Создаём заказ
         order = Order.objects.create(
             user=user,
-            total_price=total_price,  # ← только платные товары
-            full_name=address_data.get('full_name'),
-            phone=address_data.get('phone'),
-            city=address_data.get('city'),
-            street=address_data.get('street'),
-            house=address_data.get('house'),
-            apartment=address_data.get('apartment', ''),
-            postal_code=address_data.get('postal_code', '')
+            total_price=total_price,
+            full_name=address_data.get("full_name"),
+            phone=address_data.get("phone"),
+            city=address_data.get("city"),
+            street=address_data.get("street"),
+            house=address_data.get("house"),
+            apartment=address_data.get("apartment", ""),
+            postal_code=address_data.get("postal_code", ""),
         )
 
-        # Переносим товары из корзины в заказ
         for item in cart_items:
             item_price = item.price if item.price else item.product.price
             OrderItem.objects.create(
@@ -414,20 +388,17 @@ class CreateOrderView(APIView):
                 product=item.product,
                 product_name=item.product.name,
                 product_price=item_price,
-                quantity=item.quantity
+                quantity=item.quantity,
             )
 
-        # Очищаем корзину
         cart_items.delete()
 
-        return Response({
-            'message': 'Заказ успешно оформлен',
-            'order_id': order.id
-        }, status=201)
+        return Response(
+            {"message": "Заказ успешно оформлен", "order_id": order.id}, status=201
+        )
 
 
 class UserOrdersView(APIView):
-    """Получение списка заказов текущего пользователя"""
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -437,7 +408,6 @@ class UserOrdersView(APIView):
 
 
 class BlogPostViewSet(viewsets.ReadOnlyModelViewSet):
-    """Только чтение: список статей и детальная страница"""
 
     queryset = BlogPost.objects.filter(is_published=True)
     serializer_class = BlogPostSerializer
@@ -446,7 +416,6 @@ class BlogPostViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class QuestionListView(APIView):
-    """Список всех вопросов для теста"""
 
     permission_classes = [AllowAny]
 
@@ -457,22 +426,16 @@ class QuestionListView(APIView):
 
 
 class SubmitTestView(APIView):
-    """Отправка ответов, определение типа кожи и получение рекомендаций"""
 
     permission_classes = [AllowAny]
 
     def post(self, request):
-        answers = request.data.get("answers", [])  # список из 10 значений (value)
+        answers = request.data.get("answers", [])
 
         if len(answers) != 10:
             return Response({"error": "Нужно ответить на все 10 вопросов"}, status=400)
 
         total_score = sum(answers)
-        # print("✅ Запрос дошел до сервера!")
-        # print("📦 Данные от клиента:", request.data)
-        # return Response({'message': 'OK', 'answers': request.data.get('answers', [])})
-
-        # Определяем тип кожи по сумме баллов
         try:
             rule = SkinTypeRule.objects.filter(
                 min_score__lte=total_score, max_score__gte=total_score
@@ -483,13 +446,11 @@ class SubmitTestView(APIView):
         except SkinTypeRule.DoesNotExist:
             return Response({"error": "Не удалось определить тип кожи"}, status=400)
 
-        # Получаем рекомендации товаров для этого типа кожи
         recommendations = SkinCareRecommendation.objects.filter(
             skin_type=skin_type
         ).select_related("product")
         rec_serializer = SkinCareRecommendationSerializer(recommendations, many=True)
 
-        # Сериализуем тип кожи
         skin_type_serializer = SkinTypeSerializer(skin_type)
 
         return Response(

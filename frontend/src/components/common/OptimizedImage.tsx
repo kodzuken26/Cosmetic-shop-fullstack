@@ -1,30 +1,28 @@
-// src/components/common/OptimizedImage.tsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 interface OptimizedImageProps {
-    src: string;
-    alt: string;
-    className?: string;
+  src: string;
+  alt: string;
+  className?: string;
 }
 
 const OptimizedImage = ({ src, alt, className }: OptimizedImageProps) => {
-    const [imageSrc, setImageSrc] = useState('');
+  const [imageSrc, setImageSrc] = useState("");
 
-    useEffect(() => {
-        // Обновляем src только если он изменился
-        setImageSrc(prev => prev !== src ? src : prev);
-    }, [src]);
+  useEffect(() => {
+    setImageSrc((prev) => (prev !== src ? src : prev));
+  }, [src]);
 
-    return (
-        <img 
-            src={imageSrc} 
-            alt={alt}
-            className={className}
-            onError={(e) => {
-                e.currentTarget.src = '/placeholder.png';
-            }}
-        />
-    );
+  return (
+    <img
+      src={imageSrc}
+      alt={alt}
+      className={className}
+      onError={(e) => {
+        e.currentTarget.src = "/placeholder.png";
+      }}
+    />
+  );
 };
 
 export default OptimizedImage;

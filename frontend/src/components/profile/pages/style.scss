@@ -1,250 +1,235 @@
-
-
 @font-face {
-    font-family: "defaultFont";
-    src: url(/fonts/CormorantSC-Medium.ttf);
+  font-family: "defaultFont";
+  src: url(/fonts/CormorantSC-Medium.ttf);
 }
 
 @font-face {
-    font-family: "boldFont";
-    src: url(/fonts/CormorantSC-Bold.ttf);
+  font-family: "boldFont";
+  src: url(/fonts/CormorantSC-Bold.ttf);
 }
 
 $font-bold: "boldFont", sans-serif;
 $font-default: "defaultFont", sans-serif;
 
 .profile-page {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 40px 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
 }
 
 .profile-card {
-    width: 100%;
-    max-width: 720px;
+  width: 100%;
+  max-width: 720px;
 
-    background: white;
-    border-radius: 36px;
+  background: white;
+  border-radius: 36px;
 
-    padding: 40px;
+  padding: 40px;
 
-    border: 2px solid #FFDBED;
+  border: 2px solid #ffdbed;
 
-    box-shadow:
-        0 15px 40px rgba(72, 21, 53, 0.08);
+  box-shadow: 0 15px 40px rgba(72, 21, 53, 0.08);
 
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 
 .profile-top {
-    display: flex;
-    align-items: center;
-    gap: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
 
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 
-    position: relative;
-    z-index: 2;
+  position: relative;
+  z-index: 2;
 }
 
 .avatar {
-    width: 120px;
-    height: 120px;
+  width: 120px;
+  height: 120px;
 
-    border-radius: 50%;
+  border-radius: 50%;
 
-    background: linear-gradient(
-        135deg,
-        #8D93CB,
-        #481535
-    );
+  background: linear-gradient(135deg, #8d93cb, #481535);
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    color: white;
+  color: white;
 
-    font-size: 48px;
-    font-family: $font-bold;
+  font-size: 48px;
+  font-family: $font-bold;
 
-    box-shadow:
-        0 10px 25px rgba(141, 147, 203, 0.4);
+  box-shadow: 0 10px 25px rgba(141, 147, 203, 0.4);
 
-    flex-shrink: 0;
+  flex-shrink: 0;
 }
 
 .profile-head h1 {
-    font-size: 42px;
-    color: #481535;
-    font-family: $font-bold;
+  font-size: 42px;
+  color: #481535;
+  font-family: $font-bold;
 
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .profile-head p {
-    color: #8D93CB;
-    font-size: 20px;
-    font-family: $font-default;
-    letter-spacing: 2px;
+  color: #8d93cb;
+  font-size: 20px;
+  font-family: $font-default;
+  letter-spacing: 2px;
 }
 
 .profile-info {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
-    position: relative;
-    z-index: 2;
+  position: relative;
+  z-index: 2;
 }
 
 .info-item {
-    background: #FFF7FB;
+  background: #fff7fb;
 
-    border: 2px solid #FFDBED;
+  border: 2px solid #ffdbed;
 
-    border-radius: 24px;
+  border-radius: 24px;
 
-    padding: 22px 26px;
+  padding: 22px 26px;
 
-    transition: .25s;
+  transition: 0.25s;
 }
 
-
-
 .info-label {
-    color: #8D93CB;
+  color: #8d93cb;
 
-    font-size: 16px;
-    letter-spacing: 2px;
+  font-size: 16px;
+  letter-spacing: 2px;
 
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 
-    font-family: $font-default;
+  font-family: $font-default;
 }
 
 .info-value {
-    color: #481535;
+  color: #481535;
 
-    font-size: 26px;
+  font-size: 26px;
 
-    font-family: $font-bold;
+  font-family: $font-bold;
 
-    word-break: break-word;
+  word-break: break-word;
 }
 
-
 .cart-empty {
-    min-height: 60vh;
+  min-height: 60vh;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    text-align: center;
+  text-align: center;
 
-    padding: 40px 20px;
+  padding: 40px 20px;
 
-    border-radius: 40px;
+  border-radius: 40px;
 
-    border: 2px solid #FFDBED;
+  border: 2px solid #ffdbed;
 
-    box-shadow:
-        0 10px 35px rgba(72, 21, 53, 0.08);
+  box-shadow: 0 10px 35px rgba(72, 21, 53, 0.08);
 
-    margin-top: 40px;
+  margin-top: 40px;
 
-    h2 {
-        font-family: $font-bold;
-        font-size: 42px;
-        color: #481535;
-        margin-bottom: 16px;
-        letter-spacing: 2px;
-    }
+  h2 {
+    font-family: $font-bold;
+    font-size: 42px;
+    color: #481535;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+  }
 
-    p {
-        font-family: $font-default;
-        font-size: 22px;
-        color: #8D93CB;
+  p {
+    font-family: $font-default;
+    font-size: 22px;
+    color: #8d93cb;
 
-        max-width: 500px;
-        line-height: 1.6;
+    max-width: 500px;
+    line-height: 1.6;
 
-        margin-bottom: 32px;
-    }
+    margin-bottom: 32px;
+  }
 }
 
 .cart-continue {
-    text-decoration: none;
+  text-decoration: none;
 
-    background-color: #481535;
+  background-color: #481535;
 
-    color: white;
+  color: white;
 
-    padding: 18px 36px;
+  padding: 18px 36px;
 
-    border-radius: 999px;
+  border-radius: 999px;
 
-    font-family: $font-default;
-    font-size: 20px;
-    letter-spacing: 2px;
+  font-family: $font-default;
+  font-size: 20px;
+  letter-spacing: 2px;
 
-    transition: 0.3s ease;
+  transition: 0.3s ease;
 
-    box-shadow:
-        0 10px 25px rgba(141, 147, 203, 0.25);
-
+  box-shadow: 0 10px 25px rgba(141, 147, 203, 0.25);
 }
 
 @media screen and (max-width: 768px) {
-    .cart-empty {
-        min-height: 50vh;
-        padding: 30px 20px;
-        border-radius: 28px;
+  .cart-empty {
+    min-height: 50vh;
+    padding: 30px 20px;
+    border-radius: 28px;
 
-        h2 {
-            font-size: 30px;
-        }
-
-        p {
-            font-size: 18px;
-        }
+    h2 {
+      font-size: 30px;
     }
 
-    .cart-continue {
-        width: 100%;
-        max-width: 320px;
-
-        text-align: center;
-
-        font-size: 18px;
-        padding: 16px 24px;
+    p {
+      font-size: 18px;
     }
+  }
+
+  .cart-continue {
+    width: 100%;
+    max-width: 320px;
+
+    text-align: center;
+
+    font-size: 18px;
+    padding: 16px 24px;
+  }
 }
 
 @media screen and (max-width: 480px) {
-    .cart-empty {
-        margin-top: 20px;
+  .cart-empty {
+    margin-top: 20px;
 
-        h2 {
-            font-size: 26px;
-        }
-
-        p {
-            font-size: 16px;
-            line-height: 1.5;
-        }
+    h2 {
+      font-size: 26px;
     }
 
-    .cart-continue {
-        font-size: 16px;
-        letter-spacing: 1px;
+    p {
+      font-size: 16px;
+      line-height: 1.5;
     }
+  }
+
+  .cart-continue {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
 }
-
 
 .cart-page {
   max-width: 1400px;
@@ -286,14 +271,11 @@ $font-default: "defaultFont", sans-serif;
 
   padding: 24px;
 
-  border: 2px solid #FFDBED;
+  border: 2px solid #ffdbed;
 
-  box-shadow:
-    0 12px 30px rgba(72, 21, 53, 0.08);
+  box-shadow: 0 12px 30px rgba(72, 21, 53, 0.08);
 
   transition: 0.25s ease;
-
-  
 }
 
 .cart-item-image {
@@ -336,7 +318,7 @@ $font-default: "defaultFont", sans-serif;
 .cart-item-price {
   font-size: 24px;
 
-  color: #8D93CB;
+  color: #8d93cb;
 
   font-family: $font-default;
 }
@@ -373,7 +355,7 @@ $font-default: "defaultFont", sans-serif;
 
     border-radius: 50%;
 
-    background: #8D93CB;
+    background: #8d93cb;
 
     color: white;
 
@@ -416,7 +398,7 @@ $font-default: "defaultFont", sans-serif;
 
   background: transparent;
 
-  color: #8D93CB;
+  color: #8d93cb;
 
   font-size: 18px;
 
@@ -434,7 +416,7 @@ $font-default: "defaultFont", sans-serif;
 .cart-summary {
   margin-top: 40px;
 
-  border: 2px solid #FFDBED;
+  border: 2px solid #ffdbed;
 
   border-radius: 32px;
 
@@ -448,8 +430,7 @@ $font-default: "defaultFont", sans-serif;
 
   gap: 20px;
 
-  box-shadow:
-    0 12px 30px rgba(72, 21, 53, 0.06);
+  box-shadow: 0 12px 30px rgba(72, 21, 53, 0.06);
 
   p {
     font-size: 28px;
@@ -469,7 +450,7 @@ $font-default: "defaultFont", sans-serif;
 
   border-radius: 999px;
 
-  background-color:#8D93CB;
+  background-color: #8d93cb;
 
   color: white;
 
@@ -490,14 +471,9 @@ $font-default: "defaultFont", sans-serif;
 
     background: #481535;
 
-    box-shadow:
-      0 10px 24px rgba(72, 21, 53, 0.18);
+    box-shadow: 0 10px 24px rgba(72, 21, 53, 0.18);
   }
 }
-
-/* =========================
-   TABLET
-========================= */
 
 @media screen and (max-width: 1024px) {
   .cart-item {
@@ -513,10 +489,6 @@ $font-default: "defaultFont", sans-serif;
     align-items: flex-start;
   }
 }
-
-/* =========================
-   MOBILE
-========================= */
 
 @media screen and (max-width: 768px) {
   .cart-page {
@@ -582,10 +554,6 @@ $font-default: "defaultFont", sans-serif;
   }
 }
 
-/* =========================
-   SMALL MOBILE
-========================= */
-
 @media screen and (max-width: 480px) {
   .cart-page {
     padding: 0 14px;
@@ -638,60 +606,57 @@ $font-default: "defaultFont", sans-serif;
     padding: 16px 24px;
   }
 }
-/* ===== АДАПТИВ ===== */
 
 @media screen and (max-width: 768px) {
+  .profile-card {
+    padding: 30px 24px;
+  }
 
-    .profile-card {
-        padding: 30px 24px;
-    }
+  .profile-top {
+    flex-direction: column;
+    text-align: center;
+  }
 
-    .profile-top {
-        flex-direction: column;
-        text-align: center;
-    }
+  .avatar {
+    width: 100px;
+    height: 100px;
 
-    .avatar {
-        width: 100px;
-        height: 100px;
+    font-size: 40px;
+  }
 
-        font-size: 40px;
-    }
+  .profile-head h1 {
+    font-size: 34px;
+  }
 
-    .profile-head h1 {
-        font-size: 34px;
-    }
-
-    .info-value {
-        font-size: 22px;
-    }
+  .info-value {
+    font-size: 22px;
+  }
 }
 
 @media screen and (max-width: 480px) {
+  .profile-page {
+    padding: 20px 10px;
+  }
 
-    .profile-page {
-        padding: 20px 10px;
-    }
+  .profile-card {
+    border-radius: 26px;
+    padding: 24px 18px;
+  }
 
-    .profile-card {
-        border-radius: 26px;
-        padding: 24px 18px;
-    }
+  .profile-head h1 {
+    font-size: 28px;
+  }
 
-    .profile-head h1 {
-        font-size: 28px;
-    }
+  .profile-head p {
+    font-size: 16px;
+  }
 
-    .profile-head p {
-        font-size: 16px;
-    }
+  .info-item {
+    padding: 18px;
+    border-radius: 18px;
+  }
 
-    .info-item {
-        padding: 18px;
-        border-radius: 18px;
-    }
-
-    .info-value {
-        font-size: 18px;
-    }
+  .info-value {
+    font-size: 18px;
+  }
 }

@@ -5,12 +5,14 @@ import mailImg from "/gmail.png";
 import { type FC } from "react";
 import "./style.scss";
 import { Link } from "react-router-dom";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const Footer: FC = () => {
+  const access = useTypedSelector((state) => state.auth.access);
+  const isAuth = !!access;
+  const profileLink = isAuth ? "/profile/me" : "/auth";
   return (
     <>
-     
-
       <div className="block-footer">
         <div className="footer-text">
           <div className="footer-group-text">
@@ -37,7 +39,7 @@ const Footer: FC = () => {
                 Блог
               </Link>
 
-              <Link className="link" to="/registration">
+              <Link className="link" to={profileLink}>
                 Профиль
               </Link>
             </div>
